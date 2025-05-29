@@ -1,12 +1,45 @@
-﻿<Window x:Class="TerrariaTrader.Views.CartView"
+﻿<Window x:Class="TerrariaMarketplace.Views.CartView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TerrariaTrader.Views"
-        mc:Ignorable="d"
-        Title="CartView" Height="450" Width="800">
+        Title="Your Cart" Height="400" Width="600"
+        WindowStartupLocation="CenterOwner">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cart Items -->
+        <ListView Grid.Row="0" ItemsSource="{Binding CartItems}" Margin="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Item" DisplayMemberBinding="{Binding MerchantItem.Item.Name}" Width="150"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding MerchantItem.CurrentPrice, StringFormat={}{0:C}}" Width="80"/>
+                    <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="80"/>
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource MultiplyConverter}, ConverterParameter={Binding MerchantItem.CurrentPrice}, StringFormat={}{0:C}}" Width="80"/>
+                    <GridViewColumn Header="Action" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove" Command="{Binding DataContext.RemoveFromCartCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding CartItemID}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Total -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <TextBlock Text="Total:" FontWeight="Bold" Margin="0 0 10 0"/>
+            <TextBlock Text="{Binding TotalPrice, StringFormat={}{0:C}}" FontWeight="Bold"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Back" Command="{Binding BackToMainCommand}" Width="80" Margin="0 0 10 0"/>
+            <Button Content="Checkout" Command="{Binding CheckoutCommand}" Width="80"/>
+        </StackPanel>
     </Grid>
 </Window>

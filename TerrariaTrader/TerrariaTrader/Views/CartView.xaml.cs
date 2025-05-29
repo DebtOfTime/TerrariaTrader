@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using TerrariaMarketplace.ViewModels;
 
-namespace TerrariaTrader.Views
+namespace TerrariaMarketplace.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для CartView.xaml
-    /// </summary>
     public partial class CartView : Window
     {
-        public CartView()
+        public CartView(CartViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
+
+            viewModel.OnCheckoutSuccess += () => Close();
+            viewModel.OnBackToMain += () => Close();
         }
     }
 }

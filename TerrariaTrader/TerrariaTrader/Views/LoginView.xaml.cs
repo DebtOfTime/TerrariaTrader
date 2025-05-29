@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Win32;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using TerrariaMarketplace.ViewModels;
 
-namespace TerrariaTrader.Views
+namespace TerrariaMarketplace.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginView.xaml
-    /// </summary>
     public partial class LoginView : Window
     {
-        public LoginView()
+        public LoginView(LoginViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
+
+            viewModel.OnLoginSuccess += () => DialogResult = true;
+            viewModel.OnShowRegister += () =>
+            {
+                var registerView = new RegisterView(new RegisterViewModel(viewModel.AuthService));
+                registerView.Owner = this;
+                if (registerView.ShowDialog() == true)
+                {
+                    PasswordBox.Clear();
+                }
+            };
         }
     }
 }

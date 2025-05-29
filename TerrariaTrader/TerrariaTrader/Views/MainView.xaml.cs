@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using TerrariaMarketplace.ViewModels;
 
-namespace TerrariaTrader.Views
+namespace TerrariaMarketplace.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для MainView.xaml
-    /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        public MainView(MainViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
+
+            viewModel.OnViewCart += () =>
+            {
+                var cartView = new CartView(new CartViewModel(viewModel.MarketService));
+                cartView.Owner = this;
+                cartView.ShowDialog();
+            };
+
+            viewModel.OnViewOrders += () =>
+            {
+                var ordersView = new OrdersView(new OrdersViewModel(viewModel.MarketService));
+                ordersView.Owner = this;
+                ordersView.ShowDialog();
+            };
+
+            viewModel.OnLogout += () => Close();
         }
     }
 }

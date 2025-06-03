@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaTrader.Services
+namespace TerrariaTrader.AppData
 {
-    internal class AuthService
+    internal class AppConnect
     {
+        public static Entities2 model01;
     }
 }

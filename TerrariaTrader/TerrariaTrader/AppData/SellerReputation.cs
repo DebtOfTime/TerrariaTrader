@@ -12,20 +12,12 @@ namespace TerrariaTrader.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class Carts
+    public partial class SellerReputation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Carts()
-        {
-            this.CartItems = new HashSet<CartItems>();
-        }
+        public int SellerId { get; set; }
+        public Nullable<int> ReputationScore { get; set; }
+        public Nullable<System.DateTime> LastUpdated { get; set; }
     
-        public int CartId { get; set; }
-        public int UserId { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItems> CartItems { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual Sellers Sellers { get; set; }
     }
 }

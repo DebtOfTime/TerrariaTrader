@@ -7,32 +7,34 @@
       <Schema Namespace="Хранилище TerrariaTraderDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CartItems">
           <Key>
-            <PropertyRef Name="CartItemId" />
-          </Key>
-          <Property Name="CartItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CartId" Type="int" Nullable="false" />
-          <Property Name="TraderItemId" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="AddedDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Carts">
-          <Key>
             <PropertyRef Name="CartId" />
           </Key>
           <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
             <PropertyRef Name="ItemId" />
           </Key>
           <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ItemName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="BasePrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
-          <Property Name="RequiredReputationLevel" Type="int" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="255" />
+          <Property Name="RequiredReputationLevelId" Type="int" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -40,9 +42,10 @@
           </Key>
           <Property Name="OrderItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="TraderItemId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="PriceAtPurchase" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PricePurchase" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -52,96 +55,102 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="TotalAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="ReputationLevels">
           <Key>
             <PropertyRef Name="LevelId" />
           </Key>
           <Property Name="LevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LevelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LevelName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MinReputation" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
         </EntityType>
-        <EntityType Name="TraderItems">
+        <EntityType Name="SellerReputation">
           <Key>
-            <PropertyRef Name="TraderItemId" />
+            <PropertyRef Name="SellerId" />
           </Key>
-          <Property Name="TraderItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TraderId" Type="int" Nullable="false" />
-          <Property Name="ItemId" Type="int" Nullable="false" />
-          <Property Name="CurrentPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="StockQuantity" Type="int" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="ReputationScore" Type="int" />
+          <Property Name="LastUpdated" Type="datetime" />
         </EntityType>
-        <EntityType Name="Traders">
+        <EntityType Name="Sellers">
           <Key>
-            <PropertyRef Name="TraderId" />
+            <PropertyRef Name="SellerId" />
           </Key>
-          <Property Name="TraderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TraderName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
-          <Property Name="BaseReputation" Type="int" />
+          <Property Name="SellerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReputationLevelId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserReputation">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ReputationLevelId" Type="int" Nullable="false" />
+          <Property Name="ReputationScore" Type="int" />
+          <Property Name="LastUpdated" Type="datetime" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="RegistrationDate" Type="datetime" />
-          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" />
         </EntityType>
-        <EntityType Name="UserTraderReputation">
-          <Key>
-            <PropertyRef Name="UserTraderReputationId" />
-          </Key>
-          <Property Name="UserTraderReputationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="TraderId" Type="int" Nullable="false" />
-          <Property Name="ReputationPoints" Type="int" />
-          <Property Name="LastUpdated" Type="datetime" />
-        </EntityType>
-        <Association Name="FK__CartItems__CartI__571DF1D5">
-          <End Role="Carts" Type="Self.Carts" Multiplicity="1" />
+        <Association Name="FK__CartItems__ItemI__74AE54BC">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Carts">
-              <PropertyRef Name="CartId" />
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
             </Principal>
             <Dependent Role="CartItems">
-              <PropertyRef Name="CartId" />
+              <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CartItems__Trade__5812160E">
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
+        <Association Name="FK__CartItems__Selle__75A278F5">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TraderItems">
-              <PropertyRef Name="TraderItemId" />
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
             </Principal>
             <Dependent Role="CartItems">
-              <PropertyRef Name="TraderItemId" />
+              <PropertyRef Name="SellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Carts__UserId__52593CB8">
+        <Association Name="FK__CartItems__UserI__73BA3083">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Carts">
+            <Dependent Role="CartItems">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__RequiredR__4222D4EF">
+        <Association Name="FK__Items__CategoryI__47DBAE45">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Items__RequiredR__48CFD27E">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -149,11 +158,35 @@
               <PropertyRef Name="LevelId" />
             </Principal>
             <Dependent Role="Items">
-              <PropertyRef Name="RequiredReputationLevel" />
+              <PropertyRef Name="RequiredReputationLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__5FB337D6">
+        <Association Name="FK__Items__SellerId__46E78A0C">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__ItemI__01142BA1">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__Order__00200768">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -165,19 +198,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Trade__60A75C0F">
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
+        <Association Name="FK__OrderItem__Selle__02084FDA">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TraderItems">
-              <PropertyRef Name="TraderItemId" />
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
             </Principal>
             <Dependent Role="OrderItems">
-              <PropertyRef Name="TraderItemId" />
+              <PropertyRef Name="SellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserId__5CD6CB2B">
+        <Association Name="FK__Orders__UserId__7B5B524B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -189,108 +222,120 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__ItemI__47DBAE45">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
+        <Association Name="FK__SellerRep__Selle__403A8C7D">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
+          <End Role="SellerReputation" Type="Self.SellerReputation" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemId" />
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
             </Principal>
-            <Dependent Role="TraderItems">
-              <PropertyRef Name="ItemId" />
+            <Dependent Role="SellerReputation">
+              <PropertyRef Name="SellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__Trade__46E78A0C">
-          <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
+        <Association Name="FK__Sellers__Reputat__3D5E1FD2">
+          <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Traders">
-              <PropertyRef Name="TraderId" />
+            <Principal Role="ReputationLevels">
+              <PropertyRef Name="LevelId" />
             </Principal>
-            <Dependent Role="TraderItems">
-              <PropertyRef Name="TraderId" />
+            <Dependent Role="Sellers">
+              <PropertyRef Name="ReputationLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__Trade__4E88ABD4">
-          <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
-          <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
+        <Association Name="FK__UserReput__Reput__4CA06362">
+          <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
+          <End Role="UserReputation" Type="Self.UserReputation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Traders">
-              <PropertyRef Name="TraderId" />
+            <Principal Role="ReputationLevels">
+              <PropertyRef Name="LevelId" />
             </Principal>
-            <Dependent Role="UserTraderReputation">
-              <PropertyRef Name="TraderId" />
+            <Dependent Role="UserReputation">
+              <PropertyRef Name="ReputationLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__UserI__4D94879B">
+        <Association Name="FK__UserReput__UserI__4BAC3F29">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
+          <End Role="UserReputation" Type="Self.UserReputation" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="UserTraderReputation">
+            <Dependent Role="UserReputation">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище TerrariaTraderDBModelContainer">
           <EntitySet Name="CartItems" EntityType="Self.CartItems" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Carts" EntityType="Self.Carts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReputationLevels" EntityType="Self.ReputationLevels" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TraderItems" EntityType="Self.TraderItems" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Traders" EntityType="Self.Traders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellerReputation" EntityType="Self.SellerReputation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserReputation" EntityType="Self.UserReputation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserTraderReputation" EntityType="Self.UserTraderReputation" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CartItems__CartI__571DF1D5" Association="Self.FK__CartItems__CartI__571DF1D5">
-            <End Role="Carts" EntitySet="Carts" />
+          <AssociationSet Name="FK__CartItems__ItemI__74AE54BC" Association="Self.FK__CartItems__ItemI__74AE54BC">
+            <End Role="Items" EntitySet="Items" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__CartItems__Trade__5812160E" Association="Self.FK__CartItems__Trade__5812160E">
-            <End Role="TraderItems" EntitySet="TraderItems" />
+          <AssociationSet Name="FK__CartItems__Selle__75A278F5" Association="Self.FK__CartItems__Selle__75A278F5">
+            <End Role="Sellers" EntitySet="Sellers" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Carts__UserId__52593CB8" Association="Self.FK__Carts__UserId__52593CB8">
+          <AssociationSet Name="FK__CartItems__UserI__73BA3083" Association="Self.FK__CartItems__UserI__73BA3083">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Carts" EntitySet="Carts" />
+            <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__RequiredR__4222D4EF" Association="Self.FK__Items__RequiredR__4222D4EF">
+          <AssociationSet Name="FK__Items__CategoryI__47DBAE45" Association="Self.FK__Items__CategoryI__47DBAE45">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Items__RequiredR__48CFD27E" Association="Self.FK__Items__RequiredR__48CFD27E">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__5FB337D6" Association="Self.FK__OrderItem__Order__5FB337D6">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Trade__60A75C0F" Association="Self.FK__OrderItem__Trade__60A75C0F">
-            <End Role="TraderItems" EntitySet="TraderItems" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserId__5CD6CB2B" Association="Self.FK__Orders__UserId__5CD6CB2B">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__ItemI__47DBAE45" Association="Self.FK__TraderIte__ItemI__47DBAE45">
+          <AssociationSet Name="FK__Items__SellerId__46E78A0C" Association="Self.FK__Items__SellerId__46E78A0C">
+            <End Role="Sellers" EntitySet="Sellers" />
             <End Role="Items" EntitySet="Items" />
-            <End Role="TraderItems" EntitySet="TraderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__Trade__46E78A0C" Association="Self.FK__TraderIte__Trade__46E78A0C">
-            <End Role="Traders" EntitySet="Traders" />
-            <End Role="TraderItems" EntitySet="TraderItems" />
+          <AssociationSet Name="FK__OrderItem__ItemI__01142BA1" Association="Self.FK__OrderItem__ItemI__01142BA1">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__Trade__4E88ABD4" Association="Self.FK__UserTrade__Trade__4E88ABD4">
-            <End Role="Traders" EntitySet="Traders" />
-            <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
+          <AssociationSet Name="FK__OrderItem__Order__00200768" Association="Self.FK__OrderItem__Order__00200768">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__UserI__4D94879B" Association="Self.FK__UserTrade__UserI__4D94879B">
+          <AssociationSet Name="FK__OrderItem__Selle__02084FDA" Association="Self.FK__OrderItem__Selle__02084FDA">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__UserId__7B5B524B" Association="Self.FK__Orders__UserId__7B5B524B">
             <End Role="Users" EntitySet="Users" />
-            <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SellerRep__Selle__403A8C7D" Association="Self.FK__SellerRep__Selle__403A8C7D">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="SellerReputation" EntitySet="SellerReputation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sellers__Reputat__3D5E1FD2" Association="Self.FK__Sellers__Reputat__3D5E1FD2">
+            <End Role="ReputationLevels" EntitySet="ReputationLevels" />
+            <End Role="Sellers" EntitySet="Sellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserReput__Reput__4CA06362" Association="Self.FK__UserReput__Reput__4CA06362">
+            <End Role="ReputationLevels" EntitySet="ReputationLevels" />
+            <End Role="UserReputation" EntitySet="UserReputation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserReput__UserI__4BAC3F29" Association="Self.FK__UserReput__UserI__4BAC3F29">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserReputation" EntitySet="UserReputation" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -300,38 +345,43 @@
       <Schema Namespace="TerrariaTraderDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CartItems">
           <Key>
-            <PropertyRef Name="CartItemId" />
-          </Key>
-          <Property Name="CartItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CartId" Type="Int32" Nullable="false" />
-          <Property Name="TraderItemId" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK__CartItems__CartI__571DF1D5" FromRole="CartItems" ToRole="Carts" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__CartItems__Trade__5812160E" FromRole="CartItems" ToRole="TraderItems" />
-        </EntityType>
-        <EntityType Name="Carts">
-          <Key>
             <PropertyRef Name="CartId" />
           </Key>
           <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__CartI__571DF1D5" FromRole="Carts" ToRole="CartItems" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Carts__UserId__52593CB8" FromRole="Carts" ToRole="Users" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__CartItems__ItemI__74AE54BC" FromRole="CartItems" ToRole="Items" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__CartItems__Selle__75A278F5" FromRole="CartItems" ToRole="Sellers" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__CartItems__UserI__73BA3083" FromRole="CartItems" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__CategoryI__47DBAE45" FromRole="Categories" ToRole="Items" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
             <PropertyRef Name="ItemId" />
           </Key>
           <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="BasePrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="RequiredReputationLevel" Type="Int32" />
-          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Items__RequiredR__4222D4EF" FromRole="Items" ToRole="ReputationLevels" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__TraderIte__ItemI__47DBAE45" FromRole="Items" ToRole="TraderItems" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RequiredReputationLevelId" Type="Int32" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__ItemI__74AE54BC" FromRole="Items" ToRole="CartItems" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK__Items__CategoryI__47DBAE45" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Items__RequiredR__48CFD27E" FromRole="Items" ToRole="ReputationLevels" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Items__SellerId__46E78A0C" FromRole="Items" ToRole="Sellers" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__ItemI__01142BA1" FromRole="Items" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -339,11 +389,13 @@
           </Key>
           <Property Name="OrderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="TraderItemId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="PriceAtPurchase" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__5FB337D6" FromRole="OrderItems" ToRole="Orders" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__OrderItem__Trade__60A75C0F" FromRole="OrderItems" ToRole="TraderItems" />
+          <Property Name="PricePurchase" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__OrderItem__ItemI__01142BA1" FromRole="OrderItems" ToRole="Items" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__00200768" FromRole="OrderItems" ToRole="Orders" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__OrderItem__Selle__02084FDA" FromRole="OrderItems" ToRole="Sellers" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -353,110 +405,118 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="TotalAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__5FB337D6" FromRole="Orders" ToRole="OrderItems" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__5CD6CB2B" FromRole="Orders" ToRole="Users" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__00200768" FromRole="Orders" ToRole="OrderItems" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__7B5B524B" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="ReputationLevels">
           <Key>
             <PropertyRef Name="LevelId" />
           </Key>
           <Property Name="LevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MinReputation" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Items__RequiredR__4222D4EF" FromRole="ReputationLevels" ToRole="Items" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__RequiredR__48CFD27E" FromRole="ReputationLevels" ToRole="Items" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Sellers__Reputat__3D5E1FD2" FromRole="ReputationLevels" ToRole="Sellers" />
+          <NavigationProperty Name="UserReputation" Relationship="Self.FK__UserReput__Reput__4CA06362" FromRole="ReputationLevels" ToRole="UserReputation" />
         </EntityType>
-        <EntityType Name="TraderItems">
+        <EntityType Name="SellerReputation">
           <Key>
-            <PropertyRef Name="TraderItemId" />
+            <PropertyRef Name="SellerId" />
           </Key>
-          <Property Name="TraderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TraderId" Type="Int32" Nullable="false" />
-          <Property Name="ItemId" Type="Int32" Nullable="false" />
-          <Property Name="CurrentPrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="StockQuantity" Type="Int32" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__Trade__5812160E" FromRole="TraderItems" ToRole="CartItems" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__TraderIte__ItemI__47DBAE45" FromRole="TraderItems" ToRole="Items" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Trade__60A75C0F" FromRole="TraderItems" ToRole="OrderItems" />
-          <NavigationProperty Name="Traders" Relationship="Self.FK__TraderIte__Trade__46E78A0C" FromRole="TraderItems" ToRole="Traders" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="ReputationScore" Type="Int32" />
+          <Property Name="LastUpdated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__SellerRep__Selle__403A8C7D" FromRole="SellerReputation" ToRole="Sellers" />
         </EntityType>
-        <EntityType Name="Traders">
+        <EntityType Name="Sellers">
           <Key>
-            <PropertyRef Name="TraderId" />
+            <PropertyRef Name="SellerId" />
           </Key>
-          <Property Name="TraderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TraderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="BaseReputation" Type="Int32" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__TraderIte__Trade__46E78A0C" FromRole="Traders" ToRole="TraderItems" />
-          <NavigationProperty Name="UserTraderReputation" Relationship="Self.FK__UserTrade__Trade__4E88ABD4" FromRole="Traders" ToRole="UserTraderReputation" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReputationLevelId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__Selle__75A278F5" FromRole="Sellers" ToRole="CartItems" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__SellerId__46E78A0C" FromRole="Sellers" ToRole="Items" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Selle__02084FDA" FromRole="Sellers" ToRole="OrderItems" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Sellers__Reputat__3D5E1FD2" FromRole="Sellers" ToRole="ReputationLevels" />
+          <NavigationProperty Name="SellerReputation" Relationship="Self.FK__SellerRep__Selle__403A8C7D" FromRole="Sellers" ToRole="SellerReputation" />
+        </EntityType>
+        <EntityType Name="UserReputation">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ReputationLevelId" Type="Int32" Nullable="false" />
+          <Property Name="ReputationScore" Type="Int32" />
+          <Property Name="LastUpdated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__UserReput__Reput__4CA06362" FromRole="UserReputation" ToRole="ReputationLevels" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__UserReput__UserI__4BAC3F29" FromRole="UserReputation" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
-          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsAdmin" Type="Boolean" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK__Carts__UserId__52593CB8" FromRole="Users" ToRole="Carts" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__5CD6CB2B" FromRole="Users" ToRole="Orders" />
-          <NavigationProperty Name="UserTraderReputation" Relationship="Self.FK__UserTrade__UserI__4D94879B" FromRole="Users" ToRole="UserTraderReputation" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__UserI__73BA3083" FromRole="Users" ToRole="CartItems" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__7B5B524B" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="UserReputation" Relationship="Self.FK__UserReput__UserI__4BAC3F29" FromRole="Users" ToRole="UserReputation" />
         </EntityType>
-        <EntityType Name="UserTraderReputation">
-          <Key>
-            <PropertyRef Name="UserTraderReputationId" />
-          </Key>
-          <Property Name="UserTraderReputationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="TraderId" Type="Int32" Nullable="false" />
-          <Property Name="ReputationPoints" Type="Int32" />
-          <Property Name="LastUpdated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Traders" Relationship="Self.FK__UserTrade__Trade__4E88ABD4" FromRole="UserTraderReputation" ToRole="Traders" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__UserTrade__UserI__4D94879B" FromRole="UserTraderReputation" ToRole="Users" />
-        </EntityType>
-        <Association Name="FK__CartItems__CartI__571DF1D5">
-          <End Role="Carts" Type="Self.Carts" Multiplicity="1" />
+        <Association Name="FK__CartItems__ItemI__74AE54BC">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Carts">
-              <PropertyRef Name="CartId" />
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
             </Principal>
             <Dependent Role="CartItems">
-              <PropertyRef Name="CartId" />
+              <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CartItems__Trade__5812160E">
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
+        <Association Name="FK__CartItems__Selle__75A278F5">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TraderItems">
-              <PropertyRef Name="TraderItemId" />
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
             </Principal>
             <Dependent Role="CartItems">
-              <PropertyRef Name="TraderItemId" />
+              <PropertyRef Name="SellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Carts__UserId__52593CB8">
+        <Association Name="FK__CartItems__UserI__73BA3083">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Carts">
+            <Dependent Role="CartItems">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__RequiredR__4222D4EF">
+        <Association Name="FK__Items__CategoryI__47DBAE45">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Items__RequiredR__48CFD27E">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -464,23 +524,35 @@
               <PropertyRef Name="LevelId" />
             </Principal>
             <Dependent Role="Items">
-              <PropertyRef Name="RequiredReputationLevel" />
+              <PropertyRef Name="RequiredReputationLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__ItemI__47DBAE45">
+        <Association Name="FK__Items__SellerId__46E78A0C">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__ItemI__01142BA1">
           <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
               <PropertyRef Name="ItemId" />
             </Principal>
-            <Dependent Role="TraderItems">
+            <Dependent Role="OrderItems">
               <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__5FB337D6">
+        <Association Name="FK__OrderItem__Order__00200768">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -492,19 +564,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Trade__60A75C0F">
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
+        <Association Name="FK__OrderItem__Selle__02084FDA">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TraderItems">
-              <PropertyRef Name="TraderItemId" />
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
             </Principal>
             <Dependent Role="OrderItems">
-              <PropertyRef Name="TraderItemId" />
+              <PropertyRef Name="SellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserId__5CD6CB2B">
+        <Association Name="FK__Orders__UserId__7B5B524B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -516,96 +588,120 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__Trade__46E78A0C">
-          <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
-          <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
+        <Association Name="FK__Sellers__Reputat__3D5E1FD2">
+          <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Traders">
-              <PropertyRef Name="TraderId" />
+            <Principal Role="ReputationLevels">
+              <PropertyRef Name="LevelId" />
             </Principal>
-            <Dependent Role="TraderItems">
-              <PropertyRef Name="TraderId" />
+            <Dependent Role="Sellers">
+              <PropertyRef Name="ReputationLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__Trade__4E88ABD4">
-          <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
-          <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
+        <Association Name="FK__UserReput__Reput__4CA06362">
+          <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
+          <End Role="UserReputation" Type="Self.UserReputation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Traders">
-              <PropertyRef Name="TraderId" />
+            <Principal Role="ReputationLevels">
+              <PropertyRef Name="LevelId" />
             </Principal>
-            <Dependent Role="UserTraderReputation">
-              <PropertyRef Name="TraderId" />
+            <Dependent Role="UserReputation">
+              <PropertyRef Name="ReputationLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__UserI__4D94879B">
+        <Association Name="FK__SellerRep__Selle__403A8C7D">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
+          <End Role="SellerReputation" Type="Self.SellerReputation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerId" />
+            </Principal>
+            <Dependent Role="SellerReputation">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserReput__UserI__4BAC3F29">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
+          <End Role="UserReputation" Type="Self.UserReputation" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="UserTraderReputation">
+            <Dependent Role="UserReputation">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CartItems" EntityType="Self.CartItems" />
-          <EntitySet Name="Carts" EntityType="Self.Carts" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="Items" EntityType="Self.Items" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="ReputationLevels" EntityType="Self.ReputationLevels" />
-          <EntitySet Name="TraderItems" EntityType="Self.TraderItems" />
-          <EntitySet Name="Traders" EntityType="Self.Traders" />
+          <EntitySet Name="SellerReputation" EntityType="Self.SellerReputation" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" />
+          <EntitySet Name="UserReputation" EntityType="Self.UserReputation" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <EntitySet Name="UserTraderReputation" EntityType="Self.UserTraderReputation" />
-          <AssociationSet Name="FK__CartItems__CartI__571DF1D5" Association="Self.FK__CartItems__CartI__571DF1D5">
-            <End Role="Carts" EntitySet="Carts" />
+          <AssociationSet Name="FK__CartItems__ItemI__74AE54BC" Association="Self.FK__CartItems__ItemI__74AE54BC">
+            <End Role="Items" EntitySet="Items" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__CartItems__Trade__5812160E" Association="Self.FK__CartItems__Trade__5812160E">
-            <End Role="TraderItems" EntitySet="TraderItems" />
+          <AssociationSet Name="FK__CartItems__Selle__75A278F5" Association="Self.FK__CartItems__Selle__75A278F5">
+            <End Role="Sellers" EntitySet="Sellers" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Carts__UserId__52593CB8" Association="Self.FK__Carts__UserId__52593CB8">
+          <AssociationSet Name="FK__CartItems__UserI__73BA3083" Association="Self.FK__CartItems__UserI__73BA3083">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Carts" EntitySet="Carts" />
+            <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__RequiredR__4222D4EF" Association="Self.FK__Items__RequiredR__4222D4EF">
+          <AssociationSet Name="FK__Items__CategoryI__47DBAE45" Association="Self.FK__Items__CategoryI__47DBAE45">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Items__RequiredR__48CFD27E" Association="Self.FK__Items__RequiredR__48CFD27E">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__ItemI__47DBAE45" Association="Self.FK__TraderIte__ItemI__47DBAE45">
+          <AssociationSet Name="FK__Items__SellerId__46E78A0C" Association="Self.FK__Items__SellerId__46E78A0C">
+            <End Role="Sellers" EntitySet="Sellers" />
             <End Role="Items" EntitySet="Items" />
-            <End Role="TraderItems" EntitySet="TraderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__5FB337D6" Association="Self.FK__OrderItem__Order__5FB337D6">
+          <AssociationSet Name="FK__OrderItem__ItemI__01142BA1" Association="Self.FK__OrderItem__ItemI__01142BA1">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderItem__Order__00200768" Association="Self.FK__OrderItem__Order__00200768">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Trade__60A75C0F" Association="Self.FK__OrderItem__Trade__60A75C0F">
-            <End Role="TraderItems" EntitySet="TraderItems" />
+          <AssociationSet Name="FK__OrderItem__Selle__02084FDA" Association="Self.FK__OrderItem__Selle__02084FDA">
+            <End Role="Sellers" EntitySet="Sellers" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserId__5CD6CB2B" Association="Self.FK__Orders__UserId__5CD6CB2B">
+          <AssociationSet Name="FK__Orders__UserId__7B5B524B" Association="Self.FK__Orders__UserId__7B5B524B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__Trade__46E78A0C" Association="Self.FK__TraderIte__Trade__46E78A0C">
-            <End Role="Traders" EntitySet="Traders" />
-            <End Role="TraderItems" EntitySet="TraderItems" />
+          <AssociationSet Name="FK__Sellers__Reputat__3D5E1FD2" Association="Self.FK__Sellers__Reputat__3D5E1FD2">
+            <End Role="ReputationLevels" EntitySet="ReputationLevels" />
+            <End Role="Sellers" EntitySet="Sellers" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__Trade__4E88ABD4" Association="Self.FK__UserTrade__Trade__4E88ABD4">
-            <End Role="Traders" EntitySet="Traders" />
-            <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
+          <AssociationSet Name="FK__UserReput__Reput__4CA06362" Association="Self.FK__UserReput__Reput__4CA06362">
+            <End Role="ReputationLevels" EntitySet="ReputationLevels" />
+            <End Role="UserReputation" EntitySet="UserReputation" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__UserI__4D94879B" Association="Self.FK__UserTrade__UserI__4D94879B">
+          <AssociationSet Name="FK__SellerRep__Selle__403A8C7D" Association="Self.FK__SellerRep__Selle__403A8C7D">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="SellerReputation" EntitySet="SellerReputation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserReput__UserI__4BAC3F29" Association="Self.FK__UserReput__UserI__4BAC3F29">
             <End Role="Users" EntitySet="Users" />
-            <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
+            <End Role="UserReputation" EntitySet="UserReputation" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -617,20 +713,20 @@
           <EntitySetMapping Name="CartItems">
             <EntityTypeMapping TypeName="TerrariaTraderDBModel.CartItems">
               <MappingFragment StoreEntitySet="CartItems">
-                <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
                 <ScalarProperty Name="CartId" ColumnName="CartId" />
-                <ScalarProperty Name="TraderItemId" ColumnName="TraderItemId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Carts">
-            <EntityTypeMapping TypeName="TerrariaTraderDBModel.Carts">
-              <MappingFragment StoreEntitySet="Carts">
-                <ScalarProperty Name="CartId" ColumnName="CartId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TerrariaTraderDBModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -638,11 +734,13 @@
             <EntityTypeMapping TypeName="TerrariaTraderDBModel.Items">
               <MappingFragment StoreEntitySet="Items">
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="RequiredReputationLevel" ColumnName="RequiredReputationLevel" />
+                <ScalarProperty Name="RequiredReputationLevelId" ColumnName="RequiredReputationLevelId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -651,9 +749,10 @@
               <MappingFragment StoreEntitySet="OrderItems">
                 <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="TraderItemId" ColumnName="TraderItemId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="PriceAtPurchase" ColumnName="PriceAtPurchase" />
+                <ScalarProperty Name="PricePurchase" ColumnName="PricePurchase" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -678,25 +777,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TraderItems">
-            <EntityTypeMapping TypeName="TerrariaTraderDBModel.TraderItems">
-              <MappingFragment StoreEntitySet="TraderItems">
-                <ScalarProperty Name="TraderItemId" ColumnName="TraderItemId" />
-                <ScalarProperty Name="TraderId" ColumnName="TraderId" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
-                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <EntitySetMapping Name="SellerReputation">
+            <EntityTypeMapping TypeName="TerrariaTraderDBModel.SellerReputation">
+              <MappingFragment StoreEntitySet="SellerReputation">
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ReputationScore" ColumnName="ReputationScore" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Traders">
-            <EntityTypeMapping TypeName="TerrariaTraderDBModel.Traders">
-              <MappingFragment StoreEntitySet="Traders">
-                <ScalarProperty Name="TraderId" ColumnName="TraderId" />
-                <ScalarProperty Name="TraderName" ColumnName="TraderName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="BaseReputation" ColumnName="BaseReputation" />
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="TerrariaTraderDBModel.Sellers">
+              <MappingFragment StoreEntitySet="Sellers">
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="ReputationLevelId" ColumnName="ReputationLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReputation">
+            <EntityTypeMapping TypeName="TerrariaTraderDBModel.UserReputation">
+              <MappingFragment StoreEntitySet="UserReputation">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ReputationLevelId" ColumnName="ReputationLevelId" />
+                <ScalarProperty Name="ReputationScore" ColumnName="ReputationScore" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -706,21 +811,9 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserTraderReputation">
-            <EntityTypeMapping TypeName="TerrariaTraderDBModel.UserTraderReputation">
-              <MappingFragment StoreEntitySet="UserTraderReputation">
-                <ScalarProperty Name="UserTraderReputationId" ColumnName="UserTraderReputationId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TraderId" ColumnName="TraderId" />
-                <ScalarProperty Name="ReputationPoints" ColumnName="ReputationPoints" />
-                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

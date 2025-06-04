@@ -18,6 +18,8 @@ namespace TerrariaTrader.AppData
         public ReputationLevels()
         {
             this.Items = new HashSet<Items>();
+            this.Sellers = new HashSet<Sellers>();
+            this.UserReputation = new HashSet<UserReputation>();
         }
     
         public int LevelId { get; set; }
@@ -27,5 +29,9 @@ namespace TerrariaTrader.AppData
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Items> Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sellers> Sellers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserReputation> UserReputation { get; set; }
     }
 }

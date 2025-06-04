@@ -12,26 +12,18 @@ namespace TerrariaTrader.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class TraderItems
+    public partial class Categories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TraderItems()
+        public Categories()
         {
-            this.CartItems = new HashSet<CartItems>();
-            this.OrderItems = new HashSet<OrderItems>();
+            this.Items = new HashSet<Items>();
         }
     
-        public int TraderItemId { get; set; }
-        public int TraderId { get; set; }
-        public int ItemId { get; set; }
-        public decimal CurrentPrice { get; set; }
-        public Nullable<int> StockQuantity { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItems> CartItems { get; set; }
-        public virtual Items Items { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderItems> OrderItems { get; set; }
-        public virtual Traders Traders { get; set; }
+        public virtual ICollection<Items> Items { get; set; }
     }
 }

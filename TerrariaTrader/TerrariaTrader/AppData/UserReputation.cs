@@ -12,15 +12,14 @@ namespace TerrariaTrader.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class UserTraderReputation
+    public partial class UserReputation
     {
-        public int UserTraderReputationId { get; set; }
         public int UserId { get; set; }
-        public int TraderId { get; set; }
-        public Nullable<int> ReputationPoints { get; set; }
+        public int ReputationLevelId { get; set; }
+        public Nullable<int> ReputationScore { get; set; }
         public Nullable<System.DateTime> LastUpdated { get; set; }
     
-        public virtual Traders Traders { get; set; }
+        public virtual ReputationLevels ReputationLevels { get; set; }
         public virtual Users Users { get; set; }
     }
 }

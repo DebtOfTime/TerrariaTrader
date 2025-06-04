@@ -14,13 +14,15 @@ namespace TerrariaTrader.AppData
     
     public partial class CartItems
     {
-        public int CartItemId { get; set; }
         public int CartId { get; set; }
-        public int TraderItemId { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public int UserId { get; set; }
+        public int ItemId { get; set; }
+        public int SellerId { get; set; }
+        public int Quantity { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
     
-        public virtual Carts Carts { get; set; }
-        public virtual TraderItems TraderItems { get; set; }
+        public virtual Items Items { get; set; }
+        public virtual Sellers Sellers { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

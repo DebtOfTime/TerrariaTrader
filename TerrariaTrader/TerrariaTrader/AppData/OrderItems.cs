@@ -16,11 +16,13 @@ namespace TerrariaTrader.AppData
     {
         public int OrderItemId { get; set; }
         public int OrderId { get; set; }
-        public int TraderItemId { get; set; }
+        public int ItemId { get; set; }
+        public int SellerId { get; set; }
         public int Quantity { get; set; }
-        public decimal PriceAtPurchase { get; set; }
+        public decimal PricePurchase { get; set; }
     
+        public virtual Items Items { get; set; }
         public virtual Orders Orders { get; set; }
-        public virtual TraderItems TraderItems { get; set; }
+        public virtual Sellers Sellers { get; set; }
     }
 }

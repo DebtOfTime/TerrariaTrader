@@ -4,28 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8289b74b10434da49318aa5db0dfee62" Name="Diagram1">
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.CartItems" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.Carts" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.Items" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.OrderItems" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.Orders" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.ReputationLevels" Width="1.5" PointX="1.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.TraderItems" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.Traders" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.Users" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TerrariaTraderDBModel.UserTraderReputation" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__CartItems__CartI__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__CartItems__Trade__5812160E" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__Carts__UserId__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__Items__RequiredR__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__TraderIte__ItemI__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__OrderItem__Order__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__OrderItem__Trade__60A75C0F" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__Orders__UserId__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__TraderIte__Trade__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__UserTrade__Trade__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="TerrariaTraderDBModel.FK__UserTrade__UserI__4D94879B" ManuallyRouted="false" />
+      <Diagram DiagramId="a2d4200c5de8437cb92ed1830697840b" Name="Diagram1">
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.CartItems" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.Categories" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.Items" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.OrderItems" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.Orders" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.ReputationLevels" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.SellerReputation" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.Sellers" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.UserReputation" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TerrariaTraderDBModel.Users" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__CartItems__ItemI__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__CartItems__Selle__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__CartItems__UserI__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__Items__CategoryI__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__Items__RequiredR__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__Items__SellerId__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__OrderItem__ItemI__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__OrderItem__Order__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__OrderItem__Selle__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__Orders__UserId__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__Sellers__Reputat__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__UserReput__Reput__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__SellerRep__Selle__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="TerrariaTraderDBModel.FK__UserReput__UserI__4BAC3F29" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

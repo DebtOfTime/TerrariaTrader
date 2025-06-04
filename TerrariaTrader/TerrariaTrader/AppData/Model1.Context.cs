@@ -19,21 +19,25 @@ namespace TerrariaTrader.AppData
             : base("name=Entities")
         {
         }
-    
+
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<ReputationLevels> ReputationLevels { get; set; }
+        public virtual DbSet<Sellers> Sellers { get; set; }
+        public virtual DbSet<SellerReputation> SellerReputation { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Items> Items { get; set; }
+        public virtual DbSet<UserReputation> UserReputation { get; set; }
+        public virtual DbSet<CartItems> CartItems { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<OrderItems> OrderItems { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            // Explicitly define the primary key for OrderItems
+            modelBuilder.Entity<OrderItems>()
+                .HasKey(oi => oi.OrderItemId);
+
+            base.OnModelCreating(modelBuilder);
         }
-    
-        public virtual DbSet<CartItems> CartItems { get; set; }
-        public virtual DbSet<Carts> Carts { get; set; }
-        public virtual DbSet<Items> Items { get; set; }
-        public virtual DbSet<OrderItems> OrderItems { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<ReputationLevels> ReputationLevels { get; set; }
-        public virtual DbSet<TraderItems> TraderItems { get; set; }
-        public virtual DbSet<Traders> Traders { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<UserTraderReputation> UserTraderReputation { get; set; }
     }
 }

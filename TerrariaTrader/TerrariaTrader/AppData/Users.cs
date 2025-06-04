@@ -17,24 +17,21 @@ namespace TerrariaTrader.AppData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            this.Carts = new HashSet<Carts>();
+            this.CartItems = new HashSet<CartItems>();
             this.Orders = new HashSet<Orders>();
-            this.UserTraderReputation = new HashSet<UserTraderReputation>();
         }
     
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Email { get; set; }
         public Nullable<System.DateTime> RegistrationDate { get; set; }
-        public Nullable<System.DateTime> LastLogin { get; set; }
+        public string Email { get; set; }
         public Nullable<bool> IsAdmin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carts> Carts { get; set; }
+        public virtual ICollection<CartItems> CartItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserTraderReputation> UserTraderReputation { get; set; }
+        public virtual UserReputation UserReputation { get; set; }
     }
 }

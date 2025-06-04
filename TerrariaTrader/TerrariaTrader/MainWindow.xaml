@@ -1,10 +1,85 @@
-﻿<Window x:Class="TerrariaTrader.MainWindow"
+﻿<Window x:Class="TerrariaTrader.Pages.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TerrariaTrader"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+        Title="Каталог предметов" Height="600" Width="900"
+        MinHeight="400" MinWidth="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель поиска и сортировки -->
+        <Border Grid.Row="0" Background="#F5F5F5" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="txtSearch" Width="300" Height="30" Padding="5"
+                         TextChanged="txtSearch_TextChanged"
+                         FontSize="14" VerticalContentAlignment="Center"/>
+                <Button Content="Поиск" Width="80" Margin="10,0,0,0"
+                        Click="btnSearch_Click"
+                        Background="#007BFF" Foreground="White" FontSize="14" BorderThickness="0" />
+                <Button Content="A-Z" Width="60" Margin="10,0,0,0"
+                        Click="btnSortAscending_Click"
+                        Background="#28A745" Foreground="White" FontSize="14" BorderThickness="0" />
+                <Button Content="Z-A" Width="60" Margin="10,0,0,0"
+                        Click="btnSortDescending_Click"
+                        Background="#DC3545" Foreground="White" FontSize="14" BorderThickness="0" />
+                <Button Content="История покупок" Width="120" Margin="10,0,0,0"
+                        Click="btnShowHistory_Click"
+                        Background="#6C757D" Foreground="White" FontSize="14" BorderThickness="0" />
+                <Button Content="Корзина" Width="80" Margin="10,0,0,0"
+                        Click="btnShowCart_Click"
+                        Background="#17A2B8" Foreground="White" FontSize="14" BorderThickness="0" />
+            </StackPanel>
+        </Border>
+
+        <!-- Список предметов в виде карточек -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="itemsListView">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White" CornerRadius="10" Margin="10" Width="200" Height="300"
+                                BorderBrush="#E0E0E0" BorderThickness="1">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Opacity="0.2" BlurRadius="5" ShadowDepth="2"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Opacity="0.4" BlurRadius="10" ShadowDepth="4"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <StackPanel Margin="10">
+                                <Image Source="{Binding ImageUrl}" Width="180" Height="150" Stretch="Uniform"/>
+                                <TextBlock Text="{Binding ItemName}" FontWeight="Bold" FontSize="14" Margin="0,10,0,5"
+                                           TextWrapping="Wrap" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#666" 
+                                           TextWrapping="Wrap" MaxHeight="50" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding BasePrice, StringFormat={}{0} руб}" 
+                                           FontSize="14" FontWeight="Bold" Foreground="#007BFF" Margin="0,10,0,0"
+                                           TextAlignment="Center"/>
+                                <Button Content="Добавить в корзину" Width="180" Margin="0,10,0,0"
+                                        Click="btnAddToCart_Click" Tag="{Binding ItemId}"
+                                        Background="#FFC107" Foreground="Black" FontSize="12" BorderThickness="0" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </Window>

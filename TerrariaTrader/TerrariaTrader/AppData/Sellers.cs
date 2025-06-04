@@ -12,24 +12,27 @@ namespace TerrariaTrader.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class Traders
+    public partial class Sellers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Traders()
+        public Sellers()
         {
-            this.TraderItems = new HashSet<TraderItems>();
-            this.UserTraderReputation = new HashSet<UserTraderReputation>();
+            this.CartItems = new HashSet<CartItems>();
+            this.Items = new HashSet<Items>();
+            this.OrderItems = new HashSet<OrderItems>();
         }
     
-        public int TraderId { get; set; }
-        public string TraderName { get; set; }
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public Nullable<int> BaseReputation { get; set; }
+        public int SellerId { get; set; }
+        public string SellerName { get; set; }
+        public int ReputationLevelId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TraderItems> TraderItems { get; set; }
+        public virtual ICollection<CartItems> CartItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserTraderReputation> UserTraderReputation { get; set; }
+        public virtual ICollection<Items> Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderItems> OrderItems { get; set; }
+        public virtual ReputationLevels ReputationLevels { get; set; }
+        public virtual SellerReputation SellerReputation { get; set; }
     }
 }

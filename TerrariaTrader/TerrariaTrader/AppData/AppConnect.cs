@@ -8,6 +8,6 @@ namespace TerrariaTrader.AppData
 {
     internal class AppConnect
     {
-        public static Entities2 model01;
+        public static Entities model01;
     }
 }

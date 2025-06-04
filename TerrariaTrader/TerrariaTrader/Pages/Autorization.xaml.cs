@@ -16,15 +16,58 @@ using TerrariaTrader.AppData;
 
 namespace TerrariaTrader.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Autorization.xaml
-    /// </summary>
     public partial class Autorization : Window
     {
         public Autorization()
         {
             InitializeComponent();
-            AppConnect.model01 = new Entities2();
+            AppConnect.model01 = new Entities();
+        }
+        private void txtLogin_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtLogin.Text == "Login")
+            {
+                txtLogin.Text = "";
+                txtLogin.Foreground = Brushes.Black;
+            }
+        }
+        private void txtLogin_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtLogin.Text))
+            {
+                txtLogin.Text = "Login";
+                txtLogin.Foreground = Brushes.Gray;
+            }
+        }
+        private void TogglePasswordVisibility(object sender, RoutedEventArgs e)
+        {
+            if (psbPassword.Visibility == Visibility.Visible)
+            {
+                string password = psbPassword.Password.ToString();
+                VisiblePasswordBox.Text = password;
+                psbPassword.Visibility = Visibility.Collapsed;
+                VisiblePasswordBox.Visibility = Visibility.Visible;
+                EyeIcon.Source = new BitmapImage(new Uri("/Images/eyeClose.jpg", UriKind.Relative));
+            }
+            else
+            {
+                string password = VisiblePasswordBox.Text;
+                psbPassword.Password = password;
+                psbPassword.Visibility = Visibility.Visible;
+                VisiblePasswordBox.Visibility = Visibility.Collapsed;
+                EyeIcon.Source = new BitmapImage(new Uri("/Images/eyeOpen.jpg", UriKind.Relative));
+            }
+        }
+        private void VisiblePasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+              psbPassword.Password = VisiblePasswordBox.Text;
+        }
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
         }
 
         private void btAutorize_Click(object sender, RoutedEventArgs e)
@@ -43,7 +86,8 @@ namespace TerrariaTrader.Pages
                         case true:
                             MessageBox.Show("Здравствуйте, Администратор " + userObj.Username + "!",
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                            //NavigationService.Navigate(new Resepts());
+                            new MainWindow().Show();
+                            this.Close();
                             break;
 
                         case false:
@@ -57,6 +101,17 @@ namespace TerrariaTrader.Pages
             {
                 MessageBox.Show("Ошибка " + Ex.Message.ToString() + "Критическая работа приложения!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void txtLogin_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btRegistration_Click(object sender, RoutedEventArgs e)
+        {
+            new Registration().Show();
+            this.Close();
         }
     }
 }

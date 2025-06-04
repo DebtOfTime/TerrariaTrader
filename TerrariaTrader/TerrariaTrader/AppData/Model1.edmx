@@ -105,7 +105,7 @@
           <Property Name="ReputationPoints" Type="int" />
           <Property Name="LastUpdated" Type="datetime" />
         </EntityType>
-        <Association Name="FK__CartItems__CartI__440B1D61">
+        <Association Name="FK__CartItems__CartI__571DF1D5">
           <End Role="Carts" Type="Self.Carts" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -117,7 +117,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CartItems__Trade__44FF419A">
+        <Association Name="FK__CartItems__Trade__5812160E">
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -129,7 +129,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Carts__UserId__3F466844">
+        <Association Name="FK__Carts__UserId__52593CB8">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -141,7 +141,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__RequiredR__2F10007B">
+        <Association Name="FK__Items__RequiredR__4222D4EF">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -153,7 +153,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__4CA06362">
+        <Association Name="FK__OrderItem__Order__5FB337D6">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -165,7 +165,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Trade__4D94879B">
+        <Association Name="FK__OrderItem__Trade__60A75C0F">
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -177,7 +177,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserId__49C3F6B7">
+        <Association Name="FK__Orders__UserId__5CD6CB2B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -189,7 +189,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__ItemI__34C8D9D1">
+        <Association Name="FK__TraderIte__ItemI__47DBAE45">
           <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -201,7 +201,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__Trade__33D4B598">
+        <Association Name="FK__TraderIte__Trade__46E78A0C">
           <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -213,7 +213,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__Trade__3B75D760">
+        <Association Name="FK__UserTrade__Trade__4E88ABD4">
           <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
           <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -225,7 +225,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__UserI__3A81B327">
+        <Association Name="FK__UserTrade__UserI__4D94879B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -248,47 +248,47 @@
           <EntitySet Name="Traders" EntityType="Self.Traders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTraderReputation" EntityType="Self.UserTraderReputation" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CartItems__CartI__440B1D61" Association="Self.FK__CartItems__CartI__440B1D61">
+          <AssociationSet Name="FK__CartItems__CartI__571DF1D5" Association="Self.FK__CartItems__CartI__571DF1D5">
             <End Role="Carts" EntitySet="Carts" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__CartItems__Trade__44FF419A" Association="Self.FK__CartItems__Trade__44FF419A">
+          <AssociationSet Name="FK__CartItems__Trade__5812160E" Association="Self.FK__CartItems__Trade__5812160E">
             <End Role="TraderItems" EntitySet="TraderItems" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Carts__UserId__3F466844" Association="Self.FK__Carts__UserId__3F466844">
+          <AssociationSet Name="FK__Carts__UserId__52593CB8" Association="Self.FK__Carts__UserId__52593CB8">
             <End Role="Users" EntitySet="Users" />
             <End Role="Carts" EntitySet="Carts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__RequiredR__2F10007B" Association="Self.FK__Items__RequiredR__2F10007B">
+          <AssociationSet Name="FK__Items__RequiredR__4222D4EF" Association="Self.FK__Items__RequiredR__4222D4EF">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__4CA06362" Association="Self.FK__OrderItem__Order__4CA06362">
+          <AssociationSet Name="FK__OrderItem__Order__5FB337D6" Association="Self.FK__OrderItem__Order__5FB337D6">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Trade__4D94879B" Association="Self.FK__OrderItem__Trade__4D94879B">
+          <AssociationSet Name="FK__OrderItem__Trade__60A75C0F" Association="Self.FK__OrderItem__Trade__60A75C0F">
             <End Role="TraderItems" EntitySet="TraderItems" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserId__49C3F6B7" Association="Self.FK__Orders__UserId__49C3F6B7">
+          <AssociationSet Name="FK__Orders__UserId__5CD6CB2B" Association="Self.FK__Orders__UserId__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__ItemI__34C8D9D1" Association="Self.FK__TraderIte__ItemI__34C8D9D1">
+          <AssociationSet Name="FK__TraderIte__ItemI__47DBAE45" Association="Self.FK__TraderIte__ItemI__47DBAE45">
             <End Role="Items" EntitySet="Items" />
             <End Role="TraderItems" EntitySet="TraderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__Trade__33D4B598" Association="Self.FK__TraderIte__Trade__33D4B598">
+          <AssociationSet Name="FK__TraderIte__Trade__46E78A0C" Association="Self.FK__TraderIte__Trade__46E78A0C">
             <End Role="Traders" EntitySet="Traders" />
             <End Role="TraderItems" EntitySet="TraderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__Trade__3B75D760" Association="Self.FK__UserTrade__Trade__3B75D760">
+          <AssociationSet Name="FK__UserTrade__Trade__4E88ABD4" Association="Self.FK__UserTrade__Trade__4E88ABD4">
             <End Role="Traders" EntitySet="Traders" />
             <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__UserI__3A81B327" Association="Self.FK__UserTrade__UserI__3A81B327">
+          <AssociationSet Name="FK__UserTrade__UserI__4D94879B" Association="Self.FK__UserTrade__UserI__4D94879B">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
           </AssociationSet>
@@ -307,8 +307,8 @@
           <Property Name="TraderItemId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK__CartItems__CartI__440B1D61" FromRole="CartItems" ToRole="Carts" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__CartItems__Trade__44FF419A" FromRole="CartItems" ToRole="TraderItems" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__CartItems__CartI__571DF1D5" FromRole="CartItems" ToRole="Carts" />
+          <NavigationProperty Name="TraderItems" Relationship="Self.FK__CartItems__Trade__5812160E" FromRole="CartItems" ToRole="TraderItems" />
         </EntityType>
         <EntityType Name="Carts">
           <Key>
@@ -317,8 +317,8 @@
           <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__CartI__440B1D61" FromRole="Carts" ToRole="CartItems" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Carts__UserId__3F466844" FromRole="Carts" ToRole="Users" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__CartI__571DF1D5" FromRole="Carts" ToRole="CartItems" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Carts__UserId__52593CB8" FromRole="Carts" ToRole="Users" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
@@ -330,8 +330,8 @@
           <Property Name="BasePrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="RequiredReputationLevel" Type="Int32" />
-          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Items__RequiredR__2F10007B" FromRole="Items" ToRole="ReputationLevels" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__TraderIte__ItemI__34C8D9D1" FromRole="Items" ToRole="TraderItems" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Items__RequiredR__4222D4EF" FromRole="Items" ToRole="ReputationLevels" />
+          <NavigationProperty Name="TraderItems" Relationship="Self.FK__TraderIte__ItemI__47DBAE45" FromRole="Items" ToRole="TraderItems" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -342,8 +342,8 @@
           <Property Name="TraderItemId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="PriceAtPurchase" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__4CA06362" FromRole="OrderItems" ToRole="Orders" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__OrderItem__Trade__4D94879B" FromRole="OrderItems" ToRole="TraderItems" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__5FB337D6" FromRole="OrderItems" ToRole="Orders" />
+          <NavigationProperty Name="TraderItems" Relationship="Self.FK__OrderItem__Trade__60A75C0F" FromRole="OrderItems" ToRole="TraderItems" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -354,8 +354,8 @@
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="TotalAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__4CA06362" FromRole="Orders" ToRole="OrderItems" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__49C3F6B7" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__5FB337D6" FromRole="Orders" ToRole="OrderItems" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__5CD6CB2B" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="ReputationLevels">
           <Key>
@@ -365,7 +365,7 @@
           <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MinReputation" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Items__RequiredR__2F10007B" FromRole="ReputationLevels" ToRole="Items" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__RequiredR__4222D4EF" FromRole="ReputationLevels" ToRole="Items" />
         </EntityType>
         <EntityType Name="TraderItems">
           <Key>
@@ -376,10 +376,10 @@
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <Property Name="CurrentPrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="StockQuantity" Type="Int32" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__Trade__44FF419A" FromRole="TraderItems" ToRole="CartItems" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__TraderIte__ItemI__34C8D9D1" FromRole="TraderItems" ToRole="Items" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Trade__4D94879B" FromRole="TraderItems" ToRole="OrderItems" />
-          <NavigationProperty Name="Traders" Relationship="Self.FK__TraderIte__Trade__33D4B598" FromRole="TraderItems" ToRole="Traders" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__Trade__5812160E" FromRole="TraderItems" ToRole="CartItems" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__TraderIte__ItemI__47DBAE45" FromRole="TraderItems" ToRole="Items" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Trade__60A75C0F" FromRole="TraderItems" ToRole="OrderItems" />
+          <NavigationProperty Name="Traders" Relationship="Self.FK__TraderIte__Trade__46E78A0C" FromRole="TraderItems" ToRole="Traders" />
         </EntityType>
         <EntityType Name="Traders">
           <Key>
@@ -390,8 +390,8 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BaseReputation" Type="Int32" />
-          <NavigationProperty Name="TraderItems" Relationship="Self.FK__TraderIte__Trade__33D4B598" FromRole="Traders" ToRole="TraderItems" />
-          <NavigationProperty Name="UserTraderReputation" Relationship="Self.FK__UserTrade__Trade__3B75D760" FromRole="Traders" ToRole="UserTraderReputation" />
+          <NavigationProperty Name="TraderItems" Relationship="Self.FK__TraderIte__Trade__46E78A0C" FromRole="Traders" ToRole="TraderItems" />
+          <NavigationProperty Name="UserTraderReputation" Relationship="Self.FK__UserTrade__Trade__4E88ABD4" FromRole="Traders" ToRole="UserTraderReputation" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -404,9 +404,9 @@
           <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
           <Property Name="LastLogin" Type="DateTime" Precision="3" />
           <Property Name="IsAdmin" Type="Boolean" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK__Carts__UserId__3F466844" FromRole="Users" ToRole="Carts" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__49C3F6B7" FromRole="Users" ToRole="Orders" />
-          <NavigationProperty Name="UserTraderReputation" Relationship="Self.FK__UserTrade__UserI__3A81B327" FromRole="Users" ToRole="UserTraderReputation" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Carts__UserId__52593CB8" FromRole="Users" ToRole="Carts" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__5CD6CB2B" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="UserTraderReputation" Relationship="Self.FK__UserTrade__UserI__4D94879B" FromRole="Users" ToRole="UserTraderReputation" />
         </EntityType>
         <EntityType Name="UserTraderReputation">
           <Key>
@@ -417,10 +417,10 @@
           <Property Name="TraderId" Type="Int32" Nullable="false" />
           <Property Name="ReputationPoints" Type="Int32" />
           <Property Name="LastUpdated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Traders" Relationship="Self.FK__UserTrade__Trade__3B75D760" FromRole="UserTraderReputation" ToRole="Traders" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__UserTrade__UserI__3A81B327" FromRole="UserTraderReputation" ToRole="Users" />
+          <NavigationProperty Name="Traders" Relationship="Self.FK__UserTrade__Trade__4E88ABD4" FromRole="UserTraderReputation" ToRole="Traders" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__UserTrade__UserI__4D94879B" FromRole="UserTraderReputation" ToRole="Users" />
         </EntityType>
-        <Association Name="FK__CartItems__CartI__440B1D61">
+        <Association Name="FK__CartItems__CartI__571DF1D5">
           <End Role="Carts" Type="Self.Carts" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -432,7 +432,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CartItems__Trade__44FF419A">
+        <Association Name="FK__CartItems__Trade__5812160E">
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -444,7 +444,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Carts__UserId__3F466844">
+        <Association Name="FK__Carts__UserId__52593CB8">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -456,7 +456,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__RequiredR__2F10007B">
+        <Association Name="FK__Items__RequiredR__4222D4EF">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -468,7 +468,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__ItemI__34C8D9D1">
+        <Association Name="FK__TraderIte__ItemI__47DBAE45">
           <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -480,7 +480,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__4CA06362">
+        <Association Name="FK__OrderItem__Order__5FB337D6">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -492,7 +492,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Trade__4D94879B">
+        <Association Name="FK__OrderItem__Trade__60A75C0F">
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -504,7 +504,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__UserId__49C3F6B7">
+        <Association Name="FK__Orders__UserId__5CD6CB2B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -516,7 +516,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TraderIte__Trade__33D4B598">
+        <Association Name="FK__TraderIte__Trade__46E78A0C">
           <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
           <End Role="TraderItems" Type="Self.TraderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -528,7 +528,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__Trade__3B75D760">
+        <Association Name="FK__UserTrade__Trade__4E88ABD4">
           <End Role="Traders" Type="Self.Traders" Multiplicity="1" />
           <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -540,7 +540,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrade__UserI__3A81B327">
+        <Association Name="FK__UserTrade__UserI__4D94879B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="UserTraderReputation" Type="Self.UserTraderReputation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -552,7 +552,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CartItems" EntityType="Self.CartItems" />
           <EntitySet Name="Carts" EntityType="Self.Carts" />
           <EntitySet Name="Items" EntityType="Self.Items" />
@@ -563,47 +563,47 @@
           <EntitySet Name="Traders" EntityType="Self.Traders" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="UserTraderReputation" EntityType="Self.UserTraderReputation" />
-          <AssociationSet Name="FK__CartItems__CartI__440B1D61" Association="Self.FK__CartItems__CartI__440B1D61">
+          <AssociationSet Name="FK__CartItems__CartI__571DF1D5" Association="Self.FK__CartItems__CartI__571DF1D5">
             <End Role="Carts" EntitySet="Carts" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__CartItems__Trade__44FF419A" Association="Self.FK__CartItems__Trade__44FF419A">
+          <AssociationSet Name="FK__CartItems__Trade__5812160E" Association="Self.FK__CartItems__Trade__5812160E">
             <End Role="TraderItems" EntitySet="TraderItems" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Carts__UserId__3F466844" Association="Self.FK__Carts__UserId__3F466844">
+          <AssociationSet Name="FK__Carts__UserId__52593CB8" Association="Self.FK__Carts__UserId__52593CB8">
             <End Role="Users" EntitySet="Users" />
             <End Role="Carts" EntitySet="Carts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__RequiredR__2F10007B" Association="Self.FK__Items__RequiredR__2F10007B">
+          <AssociationSet Name="FK__Items__RequiredR__4222D4EF" Association="Self.FK__Items__RequiredR__4222D4EF">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__ItemI__34C8D9D1" Association="Self.FK__TraderIte__ItemI__34C8D9D1">
+          <AssociationSet Name="FK__TraderIte__ItemI__47DBAE45" Association="Self.FK__TraderIte__ItemI__47DBAE45">
             <End Role="Items" EntitySet="Items" />
             <End Role="TraderItems" EntitySet="TraderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__4CA06362" Association="Self.FK__OrderItem__Order__4CA06362">
+          <AssociationSet Name="FK__OrderItem__Order__5FB337D6" Association="Self.FK__OrderItem__Order__5FB337D6">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Trade__4D94879B" Association="Self.FK__OrderItem__Trade__4D94879B">
+          <AssociationSet Name="FK__OrderItem__Trade__60A75C0F" Association="Self.FK__OrderItem__Trade__60A75C0F">
             <End Role="TraderItems" EntitySet="TraderItems" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__UserId__49C3F6B7" Association="Self.FK__Orders__UserId__49C3F6B7">
+          <AssociationSet Name="FK__Orders__UserId__5CD6CB2B" Association="Self.FK__Orders__UserId__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__TraderIte__Trade__33D4B598" Association="Self.FK__TraderIte__Trade__33D4B598">
+          <AssociationSet Name="FK__TraderIte__Trade__46E78A0C" Association="Self.FK__TraderIte__Trade__46E78A0C">
             <End Role="Traders" EntitySet="Traders" />
             <End Role="TraderItems" EntitySet="TraderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__Trade__3B75D760" Association="Self.FK__UserTrade__Trade__3B75D760">
+          <AssociationSet Name="FK__UserTrade__Trade__4E88ABD4" Association="Self.FK__UserTrade__Trade__4E88ABD4">
             <End Role="Traders" EntitySet="Traders" />
             <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrade__UserI__3A81B327" Association="Self.FK__UserTrade__UserI__3A81B327">
+          <AssociationSet Name="FK__UserTrade__UserI__4D94879B" Association="Self.FK__UserTrade__UserI__4D94879B">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserTraderReputation" EntitySet="UserTraderReputation" />
           </AssociationSet>
@@ -613,7 +613,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TerrariaTraderDBModelContainer" CdmEntityContainer="Entities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TerrariaTraderDBModelContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="CartItems">
             <EntityTypeMapping TypeName="TerrariaTraderDBModel.CartItems">
               <MappingFragment StoreEntitySet="CartItems">

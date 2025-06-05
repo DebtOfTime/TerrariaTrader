@@ -13,31 +13,27 @@ namespace TerrariaTrader.AppData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class Entities1 : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public Entities1()
+            : base("name=Entities1")
         {
         }
-
-        public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<ReputationLevels> ReputationLevels { get; set; }
-        public virtual DbSet<Sellers> Sellers { get; set; }
-        public virtual DbSet<SellerReputation> SellerReputation { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Items> Items { get; set; }
-        public virtual DbSet<UserReputation> UserReputation { get; set; }
-        public virtual DbSet<CartItems> CartItems { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<OrderItems> OrderItems { get; set; }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Explicitly define the primary key for OrderItems
-            modelBuilder.Entity<OrderItems>()
-                .HasKey(oi => oi.OrderItemId);
-
-            base.OnModelCreating(modelBuilder);
+            throw new UnintentionalCodeFirstException();
         }
+    
+        public virtual DbSet<CartItems> CartItems { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Items> Items { get; set; }
+        public virtual DbSet<OrderItems> OrderItems { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<ReputationLevels> ReputationLevels { get; set; }
+        public virtual DbSet<SellerReputation> SellerReputation { get; set; }
+        public virtual DbSet<Sellers> Sellers { get; set; }
+        public virtual DbSet<UserReputation> UserReputation { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

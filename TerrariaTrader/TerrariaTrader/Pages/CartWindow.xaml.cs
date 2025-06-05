@@ -10,7 +10,7 @@ namespace TerrariaTrader.Pages
     public partial class CartWindow : Window
     {
         private int _userId;
-        private Entities _context;
+        private bool _isAdmin;
 
         public class CartItemViewModel
         {
@@ -21,17 +21,17 @@ namespace TerrariaTrader.Pages
             public decimal TotalPrice { get => CartItem.Quantity * Items.BasePrice; }
         }
 
-        public CartWindow(int userId)
+        public CartWindow(int userId, bool isAdmin = false)
         {
             InitializeComponent();
             _userId = userId;
-            _context = new Entities();
+            _isAdmin = isAdmin;
             LoadCartItems();
         }
 
         private void LoadCartItems()
         {
-            var cartItems = _context.CartItems
+            var cartItems = AppConnect.model01.CartItems
                 .Where(ci => ci.UserId == _userId)
                 .Include(ci => ci.Items)
                 .Select(ci => new CartItemViewModel
@@ -50,11 +50,11 @@ namespace TerrariaTrader.Pages
             if (button != null)
             {
                 int cartId = (int)button.Tag;
-                var cartItem = _context.CartItems.Find(cartId);
+                var cartItem = AppConnect.model01.CartItems.Find(cartId);
                 if (cartItem != null)
                 {
-                    _context.CartItems.Remove(cartItem);
-                    _context.SaveChanges();
+                    AppConnect.model01.CartItems.Remove(cartItem);
+                    AppConnect.model01.SaveChanges();
                     LoadCartItems();
                     MessageBox.Show("Товар удален из корзины!");
                 }
@@ -67,7 +67,7 @@ namespace TerrariaTrader.Pages
             if (button != null)
             {
                 int cartId = (int)button.Tag;
-                var cartItem = _context.CartItems.Find(cartId);
+                var cartItem = AppConnect.model01.CartItems.Find(cartId);
                 if (cartItem != null)
                 {
                     var parent = button.Parent as StackPanel;
@@ -75,7 +75,7 @@ namespace TerrariaTrader.Pages
                     if (txtQuantity != null && int.TryParse(txtQuantity.Text, out int quantity) && quantity > 0)
                     {
                         cartItem.Quantity = quantity;
-                        _context.SaveChanges();
+                        AppConnect.model01.SaveChanges();
                         LoadCartItems();
                         MessageBox.Show("Количество обновлено!");
                     }
@@ -89,7 +89,7 @@ namespace TerrariaTrader.Pages
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            var cartItems = _context.CartItems.Where(ci => ci.UserId == _userId).Include(ci => ci.Items).ToList();
+            var cartItems = AppConnect.model01.CartItems.Where(ci => ci.UserId == _userId).Include(ci => ci.Items).ToList();
             if (cartItems.Any())
             {
                 var order = new Orders
@@ -99,7 +99,7 @@ namespace TerrariaTrader.Pages
                     TotalAmount = cartItems.Sum(ci => ci.Items.BasePrice * ci.Quantity),
                     Status = "Completed"
                 };
-                _context.Orders.Add(order);
+                AppConnect.model01.Orders.Add(order);
 
                 foreach (var item in cartItems)
                 {
@@ -110,10 +110,10 @@ namespace TerrariaTrader.Pages
                         Quantity = item.Quantity,
                         PricePurchase = item.Items.BasePrice
                     });
-                    _context.CartItems.Remove(item);
+                    AppConnect.model01.CartItems.Remove(item);
                 }
 
-                _context.SaveChanges();
+                AppConnect.model01.SaveChanges();
                 LoadCartItems();
                 MessageBox.Show("Покупка завершена! Проверяйте историю.");
             }
@@ -125,14 +125,23 @@ namespace TerrariaTrader.Pages
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            if (_isAdmin)
+            {
+                var adminWindow = new AdminCatalogWindow(_userId);
+                adminWindow.Show();
+            }
+            else
+            {
+                var mainWindow = new MainWindow();
+                mainWindow._currentUserId = _userId;
+                mainWindow.Show();
+            }
             this.Close();
         }
 
         private void btnShowHistory_Click(object sender, RoutedEventArgs e)
         {
-            var historyWindow = new HistoryWindow(_userId);
+            var historyWindow = new HistoryWindow(_userId, _isAdmin); // Передаем флаг администратора
             historyWindow.Show();
             this.Close();
         }
@@ -140,7 +149,7 @@ namespace TerrariaTrader.Pages
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            _context?.Dispose();
+            // Убрана строка: _context?.Dispose();
         }
     }
 }

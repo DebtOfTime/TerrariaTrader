@@ -210,5 +210,11 @@ namespace TerrariaTrader.Pages
         {
 
         }
+
+        private void AutorizationMove_Click(object sender, RoutedEventArgs e)
+        {
+            new Autorization().Show();
+            this.Close();
+        }
     }
 }

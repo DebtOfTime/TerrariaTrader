@@ -9,15 +9,15 @@ namespace TerrariaTrader.AppData
 {
     internal class AppConnect
     {
-        private static Entities1 _model01;
+        private static Entities _model01;
 
-        public static Entities1 model01
+        public static Entities model01
         {
             get
             {
                 if (_model01 == null)
                 {
-                    _model01 = new Entities1();
+                    _model01 = new Entities();
                 }
                 return _model01;
             }

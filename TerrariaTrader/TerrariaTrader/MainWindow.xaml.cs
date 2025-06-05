@@ -164,50 +164,6 @@ namespace TerrariaTrader.Pages
             historyWindow.Show();
             this.Close();
         }
-
-        private void btnAddItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Функция добавления товара в разработке.");
-        }
-
-        private async void MenuItemEdit_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem && menuItem.DataContext is Items item)
-            {
-                await Task.Run(() =>
-                {
-                    Dispatcher.Invoke(() => MessageBox.Show($"Редактирование товара: {item.ItemName}"));
-                });
-            }
-        }
-
-        private async void MenuItemDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem && menuItem.DataContext is Items item)
-            {
-                var result = Dispatcher.Invoke(() => MessageBox.Show($"Удалить товар {item.ItemName}?", "Подтверждение удаления",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question));
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    await Task.Run(() =>
-                    {
-                        try
-                        {
-                            AppConnect.model01.Items.Remove(item);
-                            AppConnect.model01.SaveChanges();
-                            Dispatcher.Invoke(() => RefreshItemsDisplay());
-                            Dispatcher.Invoke(() => MessageBox.Show("Товар удален!"));
-                        }
-                        catch (Exception ex)
-                        {
-                            Dispatcher.Invoke(() => MessageBox.Show($"Ошибка при удалении: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error));
-                        }
-                    });
-                }
-            }
-        }
-
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);

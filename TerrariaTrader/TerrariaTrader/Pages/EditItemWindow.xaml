@@ -1,0 +1,51 @@
+﻿<Window x:Class="TerrariaTrader.Pages.EditItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактировать предмет" 
+        Width="500" Height="550"
+        MinWidth="500" MaxWidth="500"
+        MinHeight="550" MaxHeight="550"
+        ResizeMode="NoResize">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Название предмета:"/>
+        <TextBox x:Name="txtItemName" Grid.Row="1" Margin="0,5,0,10" MaxLength="30"/>
+
+        <Label Grid.Row="2" Content="Цена:"/>
+        <TextBox x:Name="txtPrice" Grid.Row="3" Margin="0,5,0,10" 
+                 PreviewTextInput="txtPrice_PreviewTextInput" TextChanged="txtPrice_TextChanged"/>
+
+        <Label Grid.Row="4" Content="Категория:"/>
+        <ComboBox x:Name="cbCategory" Grid.Row="5" Margin="0,5,0,10" SelectionChanged="cbCategory_SelectionChanged"/>
+
+        <Label Grid.Row="6" Content="Продавец:"/>
+        <ComboBox x:Name="cbSeller" Grid.Row="7" Margin="0,5,0,10" SelectionChanged="cbSeller_SelectionChanged"/>
+
+        <Label Grid.Row="8" Content="Описание:"/>
+        <TextBox x:Name="txtDescription" Grid.Row="9" Margin="0,5,0,10" Height="60" 
+                 AcceptsReturn="True" TextWrapping="Wrap" MaxLength="50"/>
+
+        <Label Grid.Row="10" Content="Уровень репутации:"/>
+        <ComboBox x:Name="cbReputationLevel" Grid.Row="11" Margin="0,5,0,10" SelectionChanged="cbReputationLevel_SelectionChanged"/>
+
+        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="btnUpdate" Content="Обновить" Click="btnUpdate_Click" Width="100" Margin="0,0,10,0"/>
+            <Button x:Name="btnCancel" Content="Отмена" Click="btnCancel_Click" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>

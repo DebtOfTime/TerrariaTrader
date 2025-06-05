@@ -21,8 +21,8 @@ namespace TerrariaTrader.AppData
         public int Quantity { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
     
-        public virtual Items Items { get; set; }
         public virtual Sellers Sellers { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Items Items { get; set; }
     }
 }

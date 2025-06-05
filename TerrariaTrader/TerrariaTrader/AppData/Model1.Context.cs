@@ -13,10 +13,10 @@ namespace TerrariaTrader.AppData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities1 : DbContext
+    public partial class Entities : DbContext
     {
-        public Entities1()
-            : base("name=Entities1")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

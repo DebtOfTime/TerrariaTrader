@@ -117,19 +117,31 @@ namespace TerrariaTrader.Pages
 
         private void btnShowHistory_Click(object sender, RoutedEventArgs e)
         {
-            var historyWindow = new HistoryWindow(_currentUserId, _isAdmin); // Передаем флаг администратора
+            var historyWindow = new HistoryWindow(_currentUserId, _isAdmin);
             historyWindow.Show();
             this.Close();
         }
 
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Функция добавления предмета в разработке.");
+            var addItemWindow = new AddItemWindow(_currentUserId);
+            addItemWindow.ShowDialog();
+            LoadItems();
         }
 
         private void btnEditItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Функция редактирования предмета в разработке.");
+            var selectedItem = itemsListView.SelectedItem as Items;
+            if (selectedItem == null)
+            {
+                MessageBox.Show("Выберите предмет для редактирования.", "Предупреждение",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var editItemWindow = new EditItemWindow(selectedItem);
+            editItemWindow.ShowDialog();
+            RefreshItemsDisplay();
         }
 
         private void btnDeleteItem_Click(object sender, RoutedEventArgs e)
@@ -142,7 +154,7 @@ namespace TerrariaTrader.Pages
                 return;
             }
 
-            var result = MessageBox.Show($"Удалить предмет {selectedItem.ItemName}? Это также удалит связанные записи в заказах.",
+            var result = MessageBox.Show($"Удалить предмет {selectedItem.ItemName}? Это также удалит его из корзин всех пользователей.",
                 "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
@@ -150,31 +162,31 @@ namespace TerrariaTrader.Pages
                 {
                     try
                     {
-                        // Delete related OrderItems
-                        var relatedOrderItems = AppConnect.model01.OrderItems
-                            .Where(oi => oi.ItemId == selectedItem.ItemId)
-                            .ToList();
-                        foreach (var orderItem in relatedOrderItems)
+                        // Повторно загружаем объект из контекста, чтобы избежать проблем с отслеживанием
+                        var itemToDelete = AppConnect.model01.Items.Find(selectedItem.ItemId);
+                        if (itemToDelete == null)
                         {
-                            AppConnect.model01.OrderItems.Remove(orderItem);
+                            throw new InvalidOperationException("Предмет не найден в базе данных.");
                         }
 
-                        // Delete related CartItems
+                        // Удаляем связанные записи из корзины (CartItems) для всех пользователей
                         var relatedCartItems = AppConnect.model01.CartItems
-                            .Where(ci => ci.ItemId == selectedItem.ItemId)
+                            .Where(ci => ci.ItemId == itemToDelete.ItemId)
                             .ToList();
                         foreach (var cartItem in relatedCartItems)
                         {
                             AppConnect.model01.CartItems.Remove(cartItem);
                         }
 
-                        // Remove the item itself
-                        AppConnect.model01.Items.Remove(selectedItem);
+                        // Удаляем сам предмет
+                        AppConnect.model01.Items.Remove(itemToDelete);
                         AppConnect.model01.SaveChanges();
 
+                        // Перезагружаем данные из базы, чтобы обновить локальную коллекцию
+                        AppConnect.model01.Items.Load();
                         transaction.Commit();
                         RefreshItemsDisplay();
-                        MessageBox.Show("Предмет и связанные записи удалены!");
+                        MessageBox.Show("Предмет удалён из каталога и корзин пользователей!");
                     }
                     catch (DbUpdateException ex)
                     {

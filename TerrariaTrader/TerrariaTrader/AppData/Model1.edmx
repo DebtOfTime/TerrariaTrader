@@ -102,7 +102,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" />
         </EntityType>
-        <Association Name="FK__CartItems__Selle__534D60F1">
+        <Association Name="FK__CartItems__Selle__403A8C7D">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -126,7 +126,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__5629CD9C">
+        <Association Name="FK__Items__CategoryI__4316F928">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -138,7 +138,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__RequiredR__571DF1D5">
+        <Association Name="FK__Items__RequiredR__440B1D61">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -150,7 +150,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__SellerId__5812160E">
+        <Association Name="FK__Items__SellerId__44FF419A">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,7 +162,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__59063A47">
+        <Association Name="FK__OrderItem__Order__45F365D3">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -174,7 +174,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Selle__59FA5E80">
+        <Association Name="FK__OrderItem__Selle__46E78A0C">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -198,7 +198,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SellerRep__Selle__5CD6CB2B">
+        <Association Name="FK__SellerRep__Selle__49C3F6B7">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="SellerReputation" Type="Self.SellerReputation" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -210,7 +210,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sellers__Reputat__5DCAEF64">
+        <Association Name="FK__Sellers__Reputat__4AB81AF0">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -222,7 +222,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserReput__Reput__5EBF139D">
+        <Association Name="FK__UserReput__Reput__4BAC3F29">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
           <End Role="UserReputation" Type="Self.UserReputation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -261,9 +261,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItems_Items">
-          <End Role="Items" Type="Self.Items" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
@@ -285,7 +283,7 @@
           <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserReputation" EntityType="Self.UserReputation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CartItems__Selle__534D60F1" Association="Self.FK__CartItems__Selle__534D60F1">
+          <AssociationSet Name="FK__CartItems__Selle__403A8C7D" Association="Self.FK__CartItems__Selle__403A8C7D">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
@@ -293,23 +291,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__5629CD9C" Association="Self.FK__Items__CategoryI__5629CD9C">
+          <AssociationSet Name="FK__Items__CategoryI__4316F928" Association="Self.FK__Items__CategoryI__4316F928">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__RequiredR__571DF1D5" Association="Self.FK__Items__RequiredR__571DF1D5">
+          <AssociationSet Name="FK__Items__RequiredR__440B1D61" Association="Self.FK__Items__RequiredR__440B1D61">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__SellerId__5812160E" Association="Self.FK__Items__SellerId__5812160E">
+          <AssociationSet Name="FK__Items__SellerId__44FF419A" Association="Self.FK__Items__SellerId__44FF419A">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__59063A47" Association="Self.FK__OrderItem__Order__59063A47">
+          <AssociationSet Name="FK__OrderItem__Order__45F365D3" Association="Self.FK__OrderItem__Order__45F365D3">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Selle__59FA5E80" Association="Self.FK__OrderItem__Selle__59FA5E80">
+          <AssociationSet Name="FK__OrderItem__Selle__46E78A0C" Association="Self.FK__OrderItem__Selle__46E78A0C">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
@@ -317,15 +315,15 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__SellerRep__Selle__5CD6CB2B" Association="Self.FK__SellerRep__Selle__5CD6CB2B">
+          <AssociationSet Name="FK__SellerRep__Selle__49C3F6B7" Association="Self.FK__SellerRep__Selle__49C3F6B7">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="SellerReputation" EntitySet="SellerReputation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sellers__Reputat__5DCAEF64" Association="Self.FK__Sellers__Reputat__5DCAEF64">
+          <AssociationSet Name="FK__Sellers__Reputat__4AB81AF0" Association="Self.FK__Sellers__Reputat__4AB81AF0">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Sellers" EntitySet="Sellers" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserReput__Reput__5EBF139D" Association="Self.FK__UserReput__Reput__5EBF139D">
+          <AssociationSet Name="FK__UserReput__Reput__4BAC3F29" Association="Self.FK__UserReput__Reput__4BAC3F29">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="UserReputation" EntitySet="UserReputation" />
           </AssociationSet>
@@ -357,7 +355,7 @@
           <Property Name="SellerId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sellers" Relationship="Self.FK__CartItems__Selle__534D60F1" FromRole="CartItems" ToRole="Sellers" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__CartItems__Selle__403A8C7D" FromRole="CartItems" ToRole="Sellers" />
           <NavigationProperty Name="Users" Relationship="Self.FK__CartItems__UserI__4F7CD00D" FromRole="CartItems" ToRole="Users" />
           <NavigationProperty Name="Items" Relationship="Self.FK_CartItems_Items" FromRole="CartItems" ToRole="Items" />
         </EntityType>
@@ -367,7 +365,7 @@
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Items__CategoryI__5629CD9C" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__CategoryI__4316F928" FromRole="Categories" ToRole="Items" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
@@ -382,9 +380,9 @@
           <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="RequiredReputationLevelId" Type="Int32" />
           <NavigationProperty Name="CartItems" Relationship="Self.FK_CartItems_Items" FromRole="Items" ToRole="CartItems" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK__Items__CategoryI__5629CD9C" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Items__RequiredR__571DF1D5" FromRole="Items" ToRole="ReputationLevels" />
-          <NavigationProperty Name="Sellers" Relationship="Self.FK__Items__SellerId__5812160E" FromRole="Items" ToRole="Sellers" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK__Items__CategoryI__4316F928" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Items__RequiredR__440B1D61" FromRole="Items" ToRole="ReputationLevels" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Items__SellerId__44FF419A" FromRole="Items" ToRole="Sellers" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Items" FromRole="Items" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="OrderItems">
@@ -398,8 +396,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="PricePurchase" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <NavigationProperty Name="Items" Relationship="Self.FK_OrderItems_Items" FromRole="OrderItems" ToRole="Items" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__59063A47" FromRole="OrderItems" ToRole="Orders" />
-          <NavigationProperty Name="Sellers" Relationship="Self.FK__OrderItem__Selle__59FA5E80" FromRole="OrderItems" ToRole="Sellers" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__45F365D3" FromRole="OrderItems" ToRole="Orders" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__OrderItem__Selle__46E78A0C" FromRole="OrderItems" ToRole="Sellers" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -410,7 +408,7 @@
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="TotalAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__59063A47" FromRole="Orders" ToRole="OrderItems" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__45F365D3" FromRole="Orders" ToRole="OrderItems" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__571DF1D5" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="ReputationLevels">
@@ -421,9 +419,9 @@
           <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MinReputation" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Items__RequiredR__571DF1D5" FromRole="ReputationLevels" ToRole="Items" />
-          <NavigationProperty Name="Sellers" Relationship="Self.FK__Sellers__Reputat__5DCAEF64" FromRole="ReputationLevels" ToRole="Sellers" />
-          <NavigationProperty Name="UserReputation" Relationship="Self.FK__UserReput__Reput__5EBF139D" FromRole="ReputationLevels" ToRole="UserReputation" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__RequiredR__440B1D61" FromRole="ReputationLevels" ToRole="Items" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Sellers__Reputat__4AB81AF0" FromRole="ReputationLevels" ToRole="Sellers" />
+          <NavigationProperty Name="UserReputation" Relationship="Self.FK__UserReput__Reput__4BAC3F29" FromRole="ReputationLevels" ToRole="UserReputation" />
         </EntityType>
         <EntityType Name="SellerReputation">
           <Key>
@@ -432,7 +430,7 @@
           <Property Name="SellerId" Type="Int32" Nullable="false" />
           <Property Name="ReputationScore" Type="Int32" />
           <Property Name="LastUpdated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sellers" Relationship="Self.FK__SellerRep__Selle__5CD6CB2B" FromRole="SellerReputation" ToRole="Sellers" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__SellerRep__Selle__49C3F6B7" FromRole="SellerReputation" ToRole="Sellers" />
         </EntityType>
         <EntityType Name="Sellers">
           <Key>
@@ -441,11 +439,11 @@
           <Property Name="SellerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ReputationLevelId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__Selle__534D60F1" FromRole="Sellers" ToRole="CartItems" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Items__SellerId__5812160E" FromRole="Sellers" ToRole="Items" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Selle__59FA5E80" FromRole="Sellers" ToRole="OrderItems" />
-          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Sellers__Reputat__5DCAEF64" FromRole="Sellers" ToRole="ReputationLevels" />
-          <NavigationProperty Name="SellerReputation" Relationship="Self.FK__SellerRep__Selle__5CD6CB2B" FromRole="Sellers" ToRole="SellerReputation" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK__CartItems__Selle__403A8C7D" FromRole="Sellers" ToRole="CartItems" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__SellerId__44FF419A" FromRole="Sellers" ToRole="Items" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Selle__46E78A0C" FromRole="Sellers" ToRole="OrderItems" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__Sellers__Reputat__4AB81AF0" FromRole="Sellers" ToRole="ReputationLevels" />
+          <NavigationProperty Name="SellerReputation" Relationship="Self.FK__SellerRep__Selle__49C3F6B7" FromRole="Sellers" ToRole="SellerReputation" />
         </EntityType>
         <EntityType Name="UserReputation">
           <Key>
@@ -455,7 +453,7 @@
           <Property Name="ReputationLevelId" Type="Int32" Nullable="false" />
           <Property Name="ReputationScore" Type="Int32" />
           <Property Name="LastUpdated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__UserReput__Reput__5EBF139D" FromRole="UserReputation" ToRole="ReputationLevels" />
+          <NavigationProperty Name="ReputationLevels" Relationship="Self.FK__UserReput__Reput__4BAC3F29" FromRole="UserReputation" ToRole="ReputationLevels" />
           <NavigationProperty Name="Users" Relationship="Self.FK__UserReput__UserI__38996AB5" FromRole="UserReputation" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
@@ -472,7 +470,7 @@
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__571DF1D5" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="UserReputation" Relationship="Self.FK__UserReput__UserI__38996AB5" FromRole="Users" ToRole="UserReputation" />
         </EntityType>
-        <Association Name="FK__CartItems__Selle__534D60F1">
+        <Association Name="FK__CartItems__Selle__403A8C7D">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -510,7 +508,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__5629CD9C">
+        <Association Name="FK__Items__CategoryI__4316F928">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -522,7 +520,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__RequiredR__571DF1D5">
+        <Association Name="FK__Items__RequiredR__440B1D61">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -534,7 +532,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__SellerId__5812160E">
+        <Association Name="FK__Items__SellerId__44FF419A">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -547,9 +545,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItems_Items">
-          <End Role="Items" Type="Self.Items" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
@@ -560,7 +556,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Order__59063A47">
+        <Association Name="FK__OrderItem__Order__45F365D3">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -572,7 +568,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderItem__Selle__59FA5E80">
+        <Association Name="FK__OrderItem__Selle__46E78A0C">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -596,7 +592,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sellers__Reputat__5DCAEF64">
+        <Association Name="FK__Sellers__Reputat__4AB81AF0">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -608,7 +604,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserReput__Reput__5EBF139D">
+        <Association Name="FK__UserReput__Reput__4BAC3F29">
           <End Role="ReputationLevels" Type="Self.ReputationLevels" Multiplicity="1" />
           <End Role="UserReputation" Type="Self.UserReputation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -620,7 +616,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SellerRep__Selle__5CD6CB2B">
+        <Association Name="FK__SellerRep__Selle__49C3F6B7">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
           <End Role="SellerReputation" Type="Self.SellerReputation" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -655,7 +651,7 @@
           <EntitySet Name="Sellers" EntityType="Self.Sellers" />
           <EntitySet Name="UserReputation" EntityType="Self.UserReputation" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK__CartItems__Selle__534D60F1" Association="Self.FK__CartItems__Selle__534D60F1">
+          <AssociationSet Name="FK__CartItems__Selle__403A8C7D" Association="Self.FK__CartItems__Selle__403A8C7D">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
@@ -667,15 +663,15 @@
             <End Role="Items" EntitySet="Items" />
             <End Role="CartItems" EntitySet="CartItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__5629CD9C" Association="Self.FK__Items__CategoryI__5629CD9C">
+          <AssociationSet Name="FK__Items__CategoryI__4316F928" Association="Self.FK__Items__CategoryI__4316F928">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__RequiredR__571DF1D5" Association="Self.FK__Items__RequiredR__571DF1D5">
+          <AssociationSet Name="FK__Items__RequiredR__440B1D61" Association="Self.FK__Items__RequiredR__440B1D61">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__SellerId__5812160E" Association="Self.FK__Items__SellerId__5812160E">
+          <AssociationSet Name="FK__Items__SellerId__44FF419A" Association="Self.FK__Items__SellerId__44FF419A">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
@@ -683,11 +679,11 @@
             <End Role="Items" EntitySet="Items" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Order__59063A47" Association="Self.FK__OrderItem__Order__59063A47">
+          <AssociationSet Name="FK__OrderItem__Order__45F365D3" Association="Self.FK__OrderItem__Order__45F365D3">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderItem__Selle__59FA5E80" Association="Self.FK__OrderItem__Selle__59FA5E80">
+          <AssociationSet Name="FK__OrderItem__Selle__46E78A0C" Association="Self.FK__OrderItem__Selle__46E78A0C">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
@@ -695,15 +691,15 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sellers__Reputat__5DCAEF64" Association="Self.FK__Sellers__Reputat__5DCAEF64">
+          <AssociationSet Name="FK__Sellers__Reputat__4AB81AF0" Association="Self.FK__Sellers__Reputat__4AB81AF0">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="Sellers" EntitySet="Sellers" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserReput__Reput__5EBF139D" Association="Self.FK__UserReput__Reput__5EBF139D">
+          <AssociationSet Name="FK__UserReput__Reput__4BAC3F29" Association="Self.FK__UserReput__Reput__4BAC3F29">
             <End Role="ReputationLevels" EntitySet="ReputationLevels" />
             <End Role="UserReputation" EntitySet="UserReputation" />
           </AssociationSet>
-          <AssociationSet Name="FK__SellerRep__Selle__5CD6CB2B" Association="Self.FK__SellerRep__Selle__5CD6CB2B">
+          <AssociationSet Name="FK__SellerRep__Selle__49C3F6B7" Association="Self.FK__SellerRep__Selle__49C3F6B7">
             <End Role="Sellers" EntitySet="Sellers" />
             <End Role="SellerReputation" EntitySet="SellerReputation" />
           </AssociationSet>

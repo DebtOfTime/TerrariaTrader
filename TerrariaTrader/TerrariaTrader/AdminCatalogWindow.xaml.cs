@@ -1,10 +1,14 @@
-﻿using System;
+﻿using QRCoder;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using TerrariaTrader.AppData;
+using TerrariaTrader.Helpers;
 
 namespace TerrariaTrader.Pages
 {
@@ -24,14 +28,23 @@ namespace TerrariaTrader.Pages
 
         private void LoadItems()
         {
-            AppConnect.model01.Items.Load(); // Используем существующий контекст
-            RefreshItemsDisplay();
+            try
+            {
+                using (var context = new Entities()) // Use local context
+                {
+                    context.Items.Load(); // Load into local context
+                    RefreshItemsDisplay(context.Items.Local.AsQueryable());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке элементов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void RefreshItemsDisplay()
+        private void RefreshItemsDisplay(IQueryable<Items> itemsQuery)
         {
             var searchText = txtSearch.Text.ToLower();
-            var itemsQuery = AppConnect.model01.Items.Local.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchText))
             {
@@ -54,24 +67,40 @@ namespace TerrariaTrader.Pages
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            RefreshItemsDisplay();
+            using (var context = new Entities())
+            {
+                var itemsQuery = context.Items.Local.AsQueryable();
+                RefreshItemsDisplay(itemsQuery);
+            }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            RefreshItemsDisplay();
+            using (var context = new Entities())
+            {
+                var itemsQuery = context.Items.Local.AsQueryable();
+                RefreshItemsDisplay(itemsQuery);
+            }
         }
 
         private void btnSortAscending_Click(object sender, RoutedEventArgs e)
         {
             _currentSortDirection = SortDirection.Ascending;
-            RefreshItemsDisplay();
+            using (var context = new Entities())
+            {
+                var itemsQuery = context.Items.Local.AsQueryable();
+                RefreshItemsDisplay(itemsQuery);
+            }
         }
 
         private void btnSortDescending_Click(object sender, RoutedEventArgs e)
         {
             _currentSortDirection = SortDirection.Descending;
-            RefreshItemsDisplay();
+            using (var context = new Entities())
+            {
+                var itemsQuery = context.Items.Local.AsQueryable();
+                RefreshItemsDisplay(itemsQuery);
+            }
         }
 
         private void btnAddToCart_Click(object sender, RoutedEventArgs e)
@@ -80,31 +109,34 @@ namespace TerrariaTrader.Pages
             if (button != null)
             {
                 int itemId = (int)button.Tag;
-                var item = AppConnect.model01.Items.Find(itemId);
-                if (item == null) return;
-
-                var existingCartItem = AppConnect.model01.CartItems
-                    .FirstOrDefault(ci => ci.UserId == _currentUserId && ci.ItemId == itemId);
-
-                if (existingCartItem != null)
+                using (var context = new Entities())
                 {
-                    existingCartItem.Quantity += 1;
-                }
-                else
-                {
-                    var cartItem = new CartItems
+                    var item = context.Items.Find(itemId);
+                    if (item == null) return;
+
+                    var existingCartItem = context.CartItems
+                        .FirstOrDefault(ci => ci.UserId == _currentUserId && ci.ItemId == itemId);
+
+                    if (existingCartItem != null)
                     {
-                        ItemId = itemId,
-                        UserId = _currentUserId,
-                        SellerId = item.SellerId,
-                        Quantity = 1,
-                        AddedDate = DateTime.Now
-                    };
-                    AppConnect.model01.CartItems.Add(cartItem);
-                }
+                        existingCartItem.Quantity += 1;
+                    }
+                    else
+                    {
+                        var cartItem = new CartItems
+                        {
+                            ItemId = itemId,
+                            UserId = _currentUserId,
+                            SellerId = item.SellerId,
+                            Quantity = 1,
+                            AddedDate = DateTime.Now
+                        };
+                        context.CartItems.Add(cartItem);
+                    }
 
-                AppConnect.model01.SaveChanges();
-                MessageBox.Show("Товар добавлен в корзину!");
+                    context.SaveChanges();
+                    MessageBox.Show("Товар добавлен в корзину!");
+                }
             }
         }
 
@@ -141,7 +173,7 @@ namespace TerrariaTrader.Pages
 
             var editItemWindow = new EditItemWindow(selectedItem);
             editItemWindow.ShowDialog();
-            RefreshItemsDisplay();
+            LoadItems(); // Reload to refresh
         }
 
         private void btnDeleteItem_Click(object sender, RoutedEventArgs e)
@@ -158,48 +190,46 @@ namespace TerrariaTrader.Pages
                 "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                using (var transaction = AppConnect.model01.Database.BeginTransaction())
+                using (var context = new Entities())
                 {
-                    try
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        // Повторно загружаем объект из контекста, чтобы избежать проблем с отслеживанием
-                        var itemToDelete = AppConnect.model01.Items.Find(selectedItem.ItemId);
-                        if (itemToDelete == null)
+                        try
                         {
-                            throw new InvalidOperationException("Предмет не найден в базе данных.");
-                        }
+                            var itemToDelete = context.Items.Find(selectedItem.ItemId);
+                            if (itemToDelete == null)
+                            {
+                                throw new InvalidOperationException("Предмет не найден в базе данных.");
+                            }
 
-                        // Удаляем связанные записи из корзины (CartItems) для всех пользователей
-                        var relatedCartItems = AppConnect.model01.CartItems
-                            .Where(ci => ci.ItemId == itemToDelete.ItemId)
-                            .ToList();
-                        foreach (var cartItem in relatedCartItems)
+                            var relatedCartItems = context.CartItems
+                                .Where(ci => ci.ItemId == itemToDelete.ItemId)
+                                .ToList();
+                            foreach (var cartItem in relatedCartItems)
+                            {
+                                context.CartItems.Remove(cartItem);
+                            }
+
+                            context.Items.Remove(itemToDelete);
+                            context.SaveChanges();
+
+                            transaction.Commit();
+                            LoadItems(); // Reload to refresh
+                            MessageBox.Show("Предмет удалён из каталога и корзин пользователей!");
+                        }
+                        catch (DbUpdateException ex)
                         {
-                            AppConnect.model01.CartItems.Remove(cartItem);
+                            transaction.Rollback();
+                            var innerMessage = ex.InnerException?.Message ?? ex.Message;
+                            MessageBox.Show($"Ошибка при удалении: {innerMessage}",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-
-                        // Удаляем сам предмет
-                        AppConnect.model01.Items.Remove(itemToDelete);
-                        AppConnect.model01.SaveChanges();
-
-                        // Перезагружаем данные из базы, чтобы обновить локальную коллекцию
-                        AppConnect.model01.Items.Load();
-                        transaction.Commit();
-                        RefreshItemsDisplay();
-                        MessageBox.Show("Предмет удалён из каталога и корзин пользователей!");
-                    }
-                    catch (DbUpdateException ex)
-                    {
-                        transaction.Rollback();
-                        var innerMessage = ex.InnerException?.Message ?? ex.Message;
-                        MessageBox.Show($"Ошибка при удалении: {innerMessage}",
-                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        MessageBox.Show($"Неожиданная ошибка: {ex.Message}",
-                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show($"Неожиданная ошибка: {ex.Message}",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
             }
@@ -208,7 +238,55 @@ namespace TerrariaTrader.Pages
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            // Не очищаем AppConnect.model01 здесь
+            // No Dispose call to avoid affecting static context
+        }
+
+        private void btnGenerateQR_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string qrText = $"https://terraria-trader-app.com?userId={_currentUserId}&isAdmin={_isAdmin}";
+
+                var qrCodeImage = TerrariaQRCodeHelper.GenerateQRCode(qrText);
+
+                var qrWindow = new Window
+                {
+                    Title = _isAdmin ? "Админ QR-код" : "QR-код приложения",
+                    Width = 300,
+                    Height = 330,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = this
+                };
+
+                var stackPanel = new StackPanel { Margin = new Thickness(15) };
+                var image = new System.Windows.Controls.Image
+                {
+                    Source = qrCodeImage,
+                    Width = 250,
+                    Height = 250,
+                    Margin = new Thickness(0, 0, 0, 15)
+                };
+                var textBlock = new TextBlock
+                {
+                    Text = _isAdmin
+                        ? "Отсканируйте для доступа к админ-панели"
+                        : "Отсканируйте для перехода в приложение",
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    FontSize = 14
+                };
+
+                stackPanel.Children.Add(image);
+                stackPanel.Children.Add(textBlock);
+                qrWindow.Content = stackPanel;
+
+                qrWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка генерации QR-кода: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

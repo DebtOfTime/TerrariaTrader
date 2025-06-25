@@ -1,10 +1,12 @@
-﻿using System;
+﻿using QRCoder;
+using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using TerrariaTrader.AppData;
+using TerrariaTrader.Helpers;
 
 namespace TerrariaTrader.Pages
 {
@@ -31,8 +33,7 @@ namespace TerrariaTrader.Pages
         {
             try
             {
-                // Проверяем, есть ли данные в базе данных, а не в локальном кэше
-                if (!AppConnect.model01.Items.Any()) // Прямой запрос к базе
+                if (!AppConnect.model01.Items.Any())
                 {
                     var testItems = new[]
                     {
@@ -41,15 +42,14 @@ namespace TerrariaTrader.Pages
                     };
                     foreach (var item in testItems)
                     {
-                        // Проверяем, нет ли уже предмета с таким именем
                         if (!AppConnect.model01.Items.Any(i => i.ItemName == item.ItemName))
                         {
                             AppConnect.model01.Items.Add(item);
                         }
                     }
-                    AppConnect.model01.SaveChanges(); // Синхронное сохранение
+                    AppConnect.model01.SaveChanges();
                 }
-                AppConnect.model01.Items.Load(); // Синхронная загрузка
+                AppConnect.model01.Items.Load();
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace TerrariaTrader.Pages
             }
 
             itemsListView.ItemsSource = itemsQuery.ToList();
-            itemsListView.DataContext = this; // Set DataContext for IsAdmin binding
+            itemsListView.DataContext = this;
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -127,7 +127,7 @@ namespace TerrariaTrader.Pages
 
                 if (existingCartItem != null)
                 {
-                    existingCartItem.Quantity += 1; // Increment quantity
+                    existingCartItem.Quantity += 1;
                 }
                 else
                 {
@@ -153,23 +153,72 @@ namespace TerrariaTrader.Pages
 
         private void btnShowCart_Click(object sender, RoutedEventArgs e)
         {
-            var cartWindow = new CartWindow(_currentUserId, _isAdmin); // Передаем флаг администратора
+            var cartWindow = new CartWindow(_currentUserId, _isAdmin);
             cartWindow.Show();
             this.Close();
         }
 
         private void btnShowHistory_Click(object sender, RoutedEventArgs e)
         {
-            var historyWindow = new HistoryWindow(_currentUserId, _isAdmin); // Передаем флаг администратора
+            var historyWindow = new HistoryWindow(_currentUserId, _isAdmin);
             historyWindow.Show();
             this.Close();
         }
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            // Не очищаем AppConnect.model01 здесь
         }
 
-        public bool IsAdmin => _isAdmin; // Property for XAML binding
+        private void btnGenerateQR_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Generate a dynamic link with user context
+                string qrText = $"https://terraria-trader-app.com?userId={_currentUserId}&isAdmin={_isAdmin}";
+
+                var qrCodeImage = TerrariaQRCodeHelper.GenerateQRCode(qrText);
+
+                var qrWindow = new Window
+                {
+                    Title = _isAdmin ? "Админ QR-код" : "QR-код приложения",
+                    Width = 300,
+                    Height = 330,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = this
+                };
+
+                var stackPanel = new StackPanel { Margin = new Thickness(15) };
+                var image = new System.Windows.Controls.Image
+                {
+                    Source = qrCodeImage,
+                    Width = 250,
+                    Height = 250,
+                    Margin = new Thickness(0, 0, 0, 15)
+                };
+                var textBlock = new TextBlock
+                {
+                    Text = _isAdmin
+                        ? "Отсканируйте для доступа к админ-панели"
+                        : "Отсканируйте для перехода в приложение",
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    FontSize = 14
+                };
+
+                stackPanel.Children.Add(image);
+                stackPanel.Children.Add(textBlock);
+                qrWindow.Content = stackPanel;
+
+                qrWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка генерации QR-кода: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public bool IsAdmin => _isAdmin;
     }
 }
